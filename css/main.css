@@ -2498,7 +2498,8 @@ body {
   background: url("/images/background.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
-  background-position: 100% 100%;
+  background-size: cover;
+  background-position: center;
 }
 .content-wrap {
   opacity: 0.7;
