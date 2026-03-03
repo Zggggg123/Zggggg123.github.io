@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/128.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"zggggg123.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.18.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="机器人部署与运维全流程指南本文基于实际操作场景，整合机器人（以LAIN_BOT为例）在云服务器上的部署、常见问题解决及日常运维（启停、更新、数据库修改）全流程，适配Supervisor进程守护、Git代码管理等核心操作，适合新手快速上手，规避常见踩坑点。 一、机器人部署全流程（基于Supervisor）部署核心目标是通过Supervisor实现机器人进程守护，确保机器人后台稳定运行，重启服务器后可">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器人部署与运维">
+<meta property="og:url" content="https://zggggg123.github.io/2026/03/03/%E6%9C%BA%E5%99%A8%E4%BA%BA%E9%83%A8%E7%BD%B2%E4%B8%8E%E8%BF%90%E7%BB%B4/index.html">
+<meta property="og:site_name" content="鱼塘">
+<meta property="og:description" content="机器人部署与运维全流程指南本文基于实际操作场景，整合机器人（以LAIN_BOT为例）在云服务器上的部署、常见问题解决及日常运维（启停、更新、数据库修改）全流程，适配Supervisor进程守护、Git代码管理等核心操作，适合新手快速上手，规避常见踩坑点。 一、机器人部署全流程（基于Supervisor）部署核心目标是通过Supervisor实现机器人进程守护，确保机器人后台稳定运行，重启服务器后可">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-03-03T15:55:59.000Z">
+<meta property="article:modified_time" content="2026-03-03T15:57:09.492Z">
+<meta property="article:author" content="ZMCheng">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://zggggg123.github.io/2026/03/03/%E6%9C%BA%E5%99%A8%E4%BA%BA%E9%83%A8%E7%BD%B2%E4%B8%8E%E8%BF%90%E7%BB%B4/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://zggggg123.github.io/2026/03/03/%E6%9C%BA%E5%99%A8%E4%BA%BA%E9%83%A8%E7%BD%B2%E4%B8%8E%E8%BF%90%E7%BB%B4/","path":"2026/03/03/机器人部署与运维/","title":"机器人部署与运维"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>机器人部署与运维 | 鱼塘</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">鱼塘</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">何故怀瑾若瑜，而自令见放为？</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-schedule"><a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9C%BA%E5%99%A8%E4%BA%BA%E9%83%A8%E7%BD%B2%E4%B8%8E%E8%BF%90%E7%BB%B4%E5%85%A8%E6%B5%81%E7%A8%8B%E6%8C%87%E5%8D%97"><span class="nav-number">1.</span> <span class="nav-text">机器人部署与运维全流程指南</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%9C%BA%E5%99%A8%E4%BA%BA%E9%83%A8%E7%BD%B2%E5%85%A8%E6%B5%81%E7%A8%8B%EF%BC%88%E5%9F%BA%E4%BA%8ESupervisor%EF%BC%89"><span class="nav-number">1.1.</span> <span class="nav-text">一、机器人部署全流程（基于Supervisor）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E7%8E%AF%E5%A2%83%E6%B8%85%E7%90%86%E4%B8%8E%E4%BE%9D%E8%B5%96%E5%AE%89%E8%A3%85"><span class="nav-number">1.1.1.</span> <span class="nav-text">1. 环境清理与依赖安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E9%85%8D%E7%BD%AESupervisor%EF%BC%88%E6%9E%81%E7%AE%80%E7%89%88%EF%BC%8C%E9%81%BF%E5%85%8D%E7%AB%AF%E5%8F%A3%E5%86%B2%E7%AA%81%EF%BC%89"><span class="nav-number">1.1.2.</span> <span class="nav-text">2. 配置Supervisor（极简版，避免端口冲突）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E9%85%8D%E7%BD%AE%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%BF%9B%E7%A8%8B"><span class="nav-number">1.1.3.</span> <span class="nav-text">3. 配置机器人进程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%90%AF%E5%8A%A8Supervisor%E4%B8%8E%E6%9C%BA%E5%99%A8%E4%BA%BA"><span class="nav-number">1.1.4.</span> <span class="nav-text">4. 启动Supervisor与机器人</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E8%AE%BE%E7%BD%AE%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF"><span class="nav-number">1.1.5.</span> <span class="nav-text">5. 设置开机自启</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%B8%B8%E8%A7%81%E9%83%A8%E7%BD%B2%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3"><span class="nav-number">1.2.</span> <span class="nav-text">二、常见部署问题解决</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E7%AB%AF%E5%8F%A3%E5%8D%A0%E7%94%A8%E9%94%99%E8%AF%AF%EF%BC%88Error-Another-program-is-already-listening-on-a-port%EF%BC%89"><span class="nav-number">1.2.1.</span> <span class="nav-text">1. 端口占用错误（Error: Another program is already listening on a port）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Supervisor%E5%90%AF%E5%8A%A8%E5%A4%B1%E8%B4%A5%EF%BC%88systemctl-status-supervisord%E6%98%BE%E7%A4%BAfailed%EF%BC%89"><span class="nav-number">1.2.2.</span> <span class="nav-text">2. Supervisor启动失败（systemctl status supervisord显示failed）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Git%E6%8B%89%E5%8F%96%E4%BB%A3%E7%A0%81%E6%8A%A5%E9%94%99%EF%BC%88fatal-not-a-git-repository%EF%BC%89"><span class="nav-number">1.2.3.</span> <span class="nav-text">3. Git拉取代码报错（fatal: not a git repository）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Git%E6%8B%89%E5%8F%96%E8%A6%81%E6%B1%82%E8%BE%93%E5%85%A5%E8%B4%A6%E5%8F%B7%E5%AF%86%E7%A0%81%EF%BC%88HTTPS%E5%8D%8F%E8%AE%AE%EF%BC%89"><span class="nav-number">1.2.4.</span> <span class="nav-text">4. Git拉取要求输入账号密码（HTTPS协议）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-Git%E6%8B%89%E5%8F%96%E5%86%B2%E7%AA%81%EF%BC%88Your-local-changes-to-the-following-files-would-be-overwritten-by-merge%EF%BC%89"><span class="nav-number">1.2.5.</span> <span class="nav-text">5. Git拉取冲突（Your local changes to the following files would be overwritten by merge）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%97%A5%E5%B8%B8%E8%BF%90%E7%BB%B4%E6%93%8D%E4%BD%9C"><span class="nav-number">1.3.</span> <span class="nav-text">三、机器人日常运维操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%90%AF%E5%81%9C%E4%B8%8E%E7%8A%B6%E6%80%81%E6%9F%A5%E7%9C%8B"><span class="nav-number">1.3.1.</span> <span class="nav-text">1. 机器人启停与状态查看</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BB%A3%E7%A0%81%E6%9B%B4%E6%96%B0%EF%BC%88%E5%88%86%E4%B8%A4%E7%A7%8D%E5%9C%BA%E6%99%AF%EF%BC%89"><span class="nav-number">1.3.2.</span> <span class="nav-text">2. 机器人代码更新（分两种场景）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%BA%E6%99%AF1%EF%BC%9A%E4%BD%BF%E7%94%A8Git%E7%AE%A1%E7%90%86%E4%BB%A3%E7%A0%81%EF%BC%88%E6%8E%A8%E8%8D%90%EF%BC%89"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">场景1：使用Git管理代码（推荐）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%BA%E6%99%AF2%EF%BC%9A%E6%89%8B%E5%8A%A8%E4%B8%8A%E4%BC%A0%E4%BB%A3%E7%A0%81%EF%BC%88%E6%9C%AA%E4%BD%BF%E7%94%A8Git%EF%BC%89"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">场景2：手动上传代码（未使用Git）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%95%B0%E6%8D%AE%E5%BA%93%E6%96%87%E4%BB%B6%E4%BF%AE%E6%94%B9%EF%BC%88%E4%BB%A5SQLite%E4%B8%BA%E4%BE%8B%EF%BC%8C%E6%9C%80%E5%B8%B8%E8%A7%81%EF%BC%89"><span class="nav-number">1.3.3.</span> <span class="nav-text">3. 数据库文件修改（以SQLite为例，最常见）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E8%BF%90%E7%BB%B4%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">1.4.</span> <span class="nav-text">四、运维注意事项</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="ZMCheng"
+      src="/images/IMG_0024.png">
+  <p class="site-author-name" itemprop="name">ZMCheng</p>
+  <div class="site-description" itemprop="description">摆的稳定</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Zggggg123" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Zggggg123" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://steamcommunity.com/profiles/76561198368406207/" title="Steam → https:&#x2F;&#x2F;steamcommunity.com&#x2F;profiles&#x2F;76561198368406207&#x2F;" rel="noopener me" target="_blank"><i class="fab fa-steam fa-fw"></i>Steam</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/355774967" title="Bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;355774967" rel="noopener me" target="_blank"><i class="fab fa-bilibili fa-fw"></i>Bilibili</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://www.maonie.top/" title="https:&#x2F;&#x2F;www.maonie.top&#x2F;" rel="noopener" target="_blank">猫捏的秘密结社</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://zggggg123.github.io/2026/03/03/%E6%9C%BA%E5%99%A8%E4%BA%BA%E9%83%A8%E7%BD%B2%E4%B8%8E%E8%BF%90%E7%BB%B4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/IMG_0024.png">
+      <meta itemprop="name" content="ZMCheng">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="鱼塘">
+      <meta itemprop="description" content="摆的稳定">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="机器人部署与运维 | 鱼塘">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          机器人部署与运维
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2026-03-03 23:55:59 / 修改时间：23:57:09" itemprop="dateCreated datePublished" datetime="2026-03-03T23:55:59+08:00">2026-03-03</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="机器人部署与运维全流程指南"><a href="#机器人部署与运维全流程指南" class="headerlink" title="机器人部署与运维全流程指南"></a>机器人部署与运维全流程指南</h1><p>本文基于实际操作场景，整合机器人（以LAIN_BOT为例）在云服务器上的部署、常见问题解决及日常运维（启停、更新、数据库修改）全流程，适配Supervisor进程守护、Git代码管理等核心操作，适合新手快速上手，规避常见踩坑点。</p>
+<h2 id="一、机器人部署全流程（基于Supervisor）"><a href="#一、机器人部署全流程（基于Supervisor）" class="headerlink" title="一、机器人部署全流程（基于Supervisor）"></a>一、机器人部署全流程（基于Supervisor）</h2><p>部署核心目标是通过Supervisor实现机器人进程守护，确保机器人后台稳定运行，重启服务器后可自动启动，步骤如下：</p>
+<h3 id="1-环境清理与依赖安装"><a href="#1-环境清理与依赖安装" class="headerlink" title="1. 环境清理与依赖安装"></a>1. 环境清理与依赖安装</h3><p>若此前部署过Supervisor且出现异常，需先彻底清理残留，再重新安装，避免冲突：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 停止所有Supervisor相关进程</span></span><br><span class="line">sudo pkill -9 supervisord</span><br><span class="line"></span><br><span class="line"><span class="comment"># 卸载旧版本Supervisor并清理残留</span></span><br><span class="line">sudo apt remove --purge supervisor -y</span><br><span class="line">sudo <span class="built_in">rm</span> -rf /etc/supervisor</span><br><span class="line">sudo <span class="built_in">rm</span> -rf /var/log/supervisor</span><br><span class="line">sudo <span class="built_in">rm</span> -f /tmp/supervisor.sock</span><br><span class="line">sudo <span class="built_in">rm</span> -f /etc/systemd/system/supervisord.service</span><br><span class="line"></span><br><span class="line"><span class="comment"># 清理开机自启配置（若此前配置过）</span></span><br><span class="line">sudo sed -i <span class="string">&#x27;/supervisord/d&#x27;</span> /etc/rc.local</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重新安装Supervisor</span></span><br><span class="line">sudo apt install supervisor -y</span><br><span class="line"><span class="comment"># 验证安装成功</span></span><br><span class="line">supervisord --version</span><br></pre></td></tr></table></figure>
+<h3 id="2-配置Supervisor（极简版，避免端口冲突）"><a href="#2-配置Supervisor（极简版，避免端口冲突）" class="headerlink" title="2. 配置Supervisor（极简版，避免端口冲突）"></a>2. 配置Supervisor（极简版，避免端口冲突）</h3><p>核心是禁用不必要的HTTP服务，仅保留本地进程通信，避免端口占用问题，配置步骤如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建Supervisor配置目录</span></span><br><span class="line">sudo <span class="built_in">mkdir</span> -p /etc/supervisor/conf.d</span><br><span class="line"></span><br><span class="line"><span class="comment"># 编辑主配置文件</span></span><br><span class="line">sudo nano /etc/supervisor/supervisord.conf</span><br></pre></td></tr></table></figure>
+<p>在配置文件中粘贴以下内容（仅保留核心功能，无HTTP服务）：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[supervisord]</span></span><br><span class="line"><span class="attr">logfile</span>=/var/log/supervisor/supervisord.log</span><br><span class="line"><span class="attr">logfile_maxbytes</span>=<span class="number">50</span>MB</span><br><span class="line"><span class="attr">logfile_backups</span>=<span class="number">10</span></span><br><span class="line"><span class="attr">loglevel</span>=info</span><br><span class="line"><span class="attr">pidfile</span>=/var/run/supervisord.pid</span><br><span class="line"><span class="attr">nodaemon</span>=<span class="literal">false</span></span><br><span class="line"><span class="attr">minfds</span>=<span class="number">1024</span></span><br><span class="line"><span class="attr">minprocs</span>=<span class="number">200</span></span><br><span class="line"></span><br><span class="line"><span class="section">[rpcinterface:supervisor]</span></span><br><span class="line"><span class="attr">supervisor.rpcinterface_factory</span> = supervisor.rpcinterface:make_main_rpcinterface</span><br><span class="line"></span><br><span class="line"><span class="section">[supervisorctl]</span></span><br><span class="line"><span class="attr">serverurl</span>=unix:///var/run/supervisor.sock  <span class="comment"># 本地通信，不占用网络端口</span></span><br><span class="line"></span><br><span class="line"><span class="section">[include]</span></span><br><span class="line"><span class="attr">files</span> = /etc/supervisor/conf.d/*.conf</span><br></pre></td></tr></table></figure>
+<p>保存退出（Ctrl+O → 回车 → Ctrl+X）。</p>
+<h3 id="3-配置机器人进程"><a href="#3-配置机器人进程" class="headerlink" title="3. 配置机器人进程"></a>3. 配置机器人进程</h3><p>创建机器人专属配置文件，指定机器人启动命令、目录、日志路径等：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建机器人配置文件</span></span><br><span class="line">sudo nano /etc/supervisor/conf.d/lain_bot.conf</span><br></pre></td></tr></table></figure>
+<p>粘贴以下配置（需根据实际路径修改）：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[program:lain_bot]</span></span><br><span class="line"><span class="attr">command</span>=/root/LAIN_BOT/venv/bin/python /root/LAIN_BOT/BAbot_Lain/main.py  <span class="comment"># 机器人启动命令（虚拟环境路径）</span></span><br><span class="line"><span class="attr">directory</span>=/root/LAIN_BOT/BAbot_Lain  <span class="comment"># 机器人代码目录</span></span><br><span class="line"><span class="attr">user</span>=root</span><br><span class="line"><span class="attr">autostart</span>=<span class="literal">true</span>  <span class="comment"># 随Supervisor自动启动</span></span><br><span class="line"><span class="attr">autorestart</span>=<span class="literal">true</span>  <span class="comment"># 机器人崩溃后自动重启</span></span><br><span class="line"><span class="attr">stdout_logfile</span>=/root/LAIN_BOT/bot.log  <span class="comment"># 正常运行日志</span></span><br><span class="line"><span class="attr">stderr_logfile</span>=/root/LAIN_BOT/error.log  <span class="comment"># 错误日志</span></span><br></pre></td></tr></table></figure>
+<p>保存退出。</p>
+<h3 id="4-启动Supervisor与机器人"><a href="#4-启动Supervisor与机器人" class="headerlink" title="4. 启动Supervisor与机器人"></a>4. 启动Supervisor与机器人</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 启动Supervisor（指定配置文件）</span></span><br><span class="line">sudo supervisord -c /etc/supervisor/supervisord.conf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证Supervisor是否启动成功（需显示1个进程）</span></span><br><span class="line">ps -ef | grep supervisord</span><br><span class="line"></span><br><span class="line"><span class="comment"># 加载机器人配置</span></span><br><span class="line">sudo supervisorctl -c /etc/supervisor/supervisord.conf update</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动机器人</span></span><br><span class="line">sudo supervisorctl -c /etc/supervisor/supervisord.conf start lain_bot</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看机器人状态（显示RUNNING即为成功）</span></span><br><span class="line">sudo supervisorctl -c /etc/supervisor/supervisord.conf status lain_bot</span><br></pre></td></tr></table></figure>
+<h3 id="5-设置开机自启"><a href="#5-设置开机自启" class="headerlink" title="5. 设置开机自启"></a>5. 设置开机自启</h3><p>若/etc/rc.local为空，手动创建并配置自启命令，确保服务器重启后机器人自动运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 编辑rc.local文件</span></span><br><span class="line">sudo nano /etc/rc.local</span><br></pre></td></tr></table></figure>
+<p>粘贴以下完整内容：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh -e</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># rc.local</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># This script is executed at the end of each multiuser runlevel.</span></span><br><span class="line"><span class="comment"># Make sure that the script will &quot;exit 0&quot; on success or any other</span></span><br><span class="line"><span class="comment"># value on error.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># In order to enable or disable this script just change the execution</span></span><br><span class="line"><span class="comment"># bits.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># By default this script does nothing.</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动Supervisor（机器人随Supervisor自动启动）</span></span><br><span class="line">/usr/bin/supervisord -c /etc/supervisor/supervisord.conf</span><br><span class="line"></span><br><span class="line"><span class="built_in">exit</span> 0</span><br></pre></td></tr></table></figure>
+<p>保存后赋予执行权限：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="built_in">chmod</span> +x /etc/rc.local</span><br></pre></td></tr></table></figure>
+<h2 id="二、常见部署问题解决"><a href="#二、常见部署问题解决" class="headerlink" title="二、常见部署问题解决"></a>二、常见部署问题解决</h2><h3 id="1-端口占用错误（Error-Another-program-is-already-listening-on-a-port）"><a href="#1-端口占用错误（Error-Another-program-is-already-listening-on-a-port）" class="headerlink" title="1. 端口占用错误（Error: Another program is already listening on a port）"></a>1. 端口占用错误（Error: Another program is already listening on a port）</h3><p>核心原因：Supervisor的HTTP服务占用端口，或残留进程、socket文件冲突，解决步骤：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 彻底终止所有Supervisor进程</span></span><br><span class="line">sudo pkill -9 supervisord</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 删除残留的socket文件（关键）</span></span><br><span class="line">sudo <span class="built_in">rm</span> -f /var/run/supervisor.sock  <span class="comment"># 对应配置文件中的socket路径</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 确认配置文件中已禁用inet_http_server（无未注释的[inet_http_server]段落）</span></span><br><span class="line"><span class="comment"># 4. 重新启动Supervisor</span></span><br><span class="line">sudo supervisord -c /etc/supervisor/supervisord.conf</span><br></pre></td></tr></table></figure>
+<p>注意：无需调整云服务器防火墙，该问题是服务器内部进程冲突，与防火墙无关。</p>
+<h3 id="2-Supervisor启动失败（systemctl-status-supervisord显示failed）"><a href="#2-Supervisor启动失败（systemctl-status-supervisord显示failed）" class="headerlink" title="2. Supervisor启动失败（systemctl status supervisord显示failed）"></a>2. Supervisor启动失败（systemctl status supervisord显示failed）</h3><p>核心原因：systemd服务与手动启动的Supervisor进程冲突，解决方法：</p>
+<p>无需关注systemctl的失败信息，只要通过ps -ef | grep supervisord能看到Supervisor进程，且机器人状态为RUNNING，即视为正常（我们采用手动启动Supervisor，无需依赖systemd服务）。</p>
+<h3 id="3-Git拉取代码报错（fatal-not-a-git-repository）"><a href="#3-Git拉取代码报错（fatal-not-a-git-repository）" class="headerlink" title="3. Git拉取代码报错（fatal: not a git repository）"></a>3. Git拉取代码报错（fatal: not a git repository）</h3><p>核心原因：当前目录不是Git仓库（.git目录被误删），解决步骤：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 进入机器人代码目录上级</span></span><br><span class="line"><span class="built_in">cd</span> /root/LAIN_BOT/</span><br><span class="line"><span class="comment"># 删除当前代码目录（确保已备份重要修改）</span></span><br><span class="line">sudo <span class="built_in">rm</span> -rf BAbot_Lain/</span><br><span class="line"><span class="comment"># 重新克隆远程仓库（替换为你的仓库地址）</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/Zggggg123/BAbot_Lain.git BAbot_Lain</span><br><span class="line"><span class="comment"># 进入代码目录</span></span><br><span class="line"><span class="built_in">cd</span> BAbot_Lain/</span><br></pre></td></tr></table></figure>
+<h3 id="4-Git拉取要求输入账号密码（HTTPS协议）"><a href="#4-Git拉取要求输入账号密码（HTTPS协议）" class="headerlink" title="4. Git拉取要求输入账号密码（HTTPS协议）"></a>4. Git拉取要求输入账号密码（HTTPS协议）</h3><p>核心原因：GitHub不再支持账号密码直接验证，需使用Personal Access Token（PAT），步骤：</p>
+<ol>
+<li><p>登录GitHub，进入<a target="_blank" rel="noopener" href="https://github.com/settings/tokens，创建经典令牌（Generate">https://github.com/settings/tokens，创建经典令牌（Generate</a> new token (classic)）；</p>
+</li>
+<li><p>设置令牌名称，勾选repo权限（全选子项），生成后复制保存（仅显示一次）；</p>
+</li>
+<li><p>拉取代码时，用户名填GitHub账号/邮箱，密码粘贴生成的PAT（终端不显示粘贴内容，正常）。</p>
+</li>
+</ol>
+<p>可选：配置凭证缓存，避免每次拉取输入：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global credential.helper store</span><br></pre></td></tr></table></figure>
+<h3 id="5-Git拉取冲突（Your-local-changes-to-the-following-files-would-be-overwritten-by-merge）"><a href="#5-Git拉取冲突（Your-local-changes-to-the-following-files-would-be-overwritten-by-merge）" class="headerlink" title="5. Git拉取冲突（Your local changes to the following files would be overwritten by merge）"></a>5. Git拉取冲突（Your local changes to the following files would be overwritten by merge）</h3><p>核心原因：本地文件（如botpy.log日志）有修改，与远程代码冲突，解决方法（以botpy.log为例）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 暂存本地修改（保留日志内容）</span></span><br><span class="line">git stash push -m <span class="string">&quot;暂存botpy.log日志&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 拉取远程代码</span></span><br><span class="line">git pull origin master  <span class="comment"># 替换为你的分支名</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 恢复本地日志（可选）</span></span><br><span class="line">git stash pop</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 永久解决：创建.gitignore排除日志文件</span></span><br><span class="line">nano .gitignore</span><br></pre></td></tr></table></figure>
+<p>在.gitignore中添加以下内容，排除日志、缓存等无需版本管理的文件：</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"># 日志文件</span><br><span class="line">*.log</span><br><span class="line">botpy.log</span><br><span class="line"></span><br><span class="line"># Python缓存文件</span><br><span class="line">__pycache__/</span><br><span class="line">*.pyc</span><br><span class="line">*.pyo</span><br><span class="line">*.pyd</span><br><span class="line"></span><br><span class="line"># 虚拟环境</span><br><span class="line">venv/</span><br><span class="line">env/</span><br><span class="line"></span><br><span class="line"># 数据库文件</span><br><span class="line">*.db</span><br><span class="line">*.sqlite3</span><br></pre></td></tr></table></figure>
+<p>保存后提交.gitignore（可选，同步到远程仓库）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add .gitignore</span><br><span class="line">git commit -m <span class="string">&quot;添加.gitignore，排除日志和缓存文件&quot;</span></span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
+<h2 id="三、机器人日常运维操作"><a href="#三、机器人日常运维操作" class="headerlink" title="三、机器人日常运维操作"></a>三、机器人日常运维操作</h2><h3 id="1-机器人启停与状态查看"><a href="#1-机器人启停与状态查看" class="headerlink" title="1. 机器人启停与状态查看"></a>1. 机器人启停与状态查看</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看机器人状态</span></span><br><span class="line">sudo supervisorctl -c /etc/supervisor/supervisord.conf status lain_bot</span><br><span class="line"></span><br><span class="line"><span class="comment"># 停止机器人（保留Supervisor运行）</span></span><br><span class="line">sudo supervisorctl -c /etc/supervisor/supervisord.conf stop lain_bot</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动机器人</span></span><br><span class="line">sudo supervisorctl -c /etc/supervisor/supervisord.conf start lain_bot</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重启机器人（更新代码后常用）</span></span><br><span class="line">sudo supervisorctl -c /etc/supervisor/supervisord.conf restart lain_bot</span><br><span class="line"></span><br><span class="line"><span class="comment"># 彻底停止Supervisor（包括所有管理的进程）</span></span><br><span class="line">sudo pkill -9 supervisord</span><br><span class="line"><span class="comment"># 确认停止（无输出即为成功）</span></span><br><span class="line">ps -ef | grep supervisord</span><br></pre></td></tr></table></figure>
+<h3 id="2-机器人代码更新（分两种场景）"><a href="#2-机器人代码更新（分两种场景）" class="headerlink" title="2. 机器人代码更新（分两种场景）"></a>2. 机器人代码更新（分两种场景）</h3><h4 id="场景1：使用Git管理代码（推荐）"><a href="#场景1：使用Git管理代码（推荐）" class="headerlink" title="场景1：使用Git管理代码（推荐）"></a>场景1：使用Git管理代码（推荐）</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 进入代码目录</span></span><br><span class="line"><span class="built_in">cd</span> /root/LAIN_BOT/BAbot_Lain/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 停止机器人</span></span><br><span class="line">sudo supervisorctl -c /etc/supervisor/supervisord.conf stop lain_bot</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 拉取远程最新代码（解决冲突后）</span></span><br><span class="line">git pull origin master</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 若更新了依赖，进入虚拟环境安装</span></span><br><span class="line"><span class="built_in">source</span> /root/LAIN_BOT/venv/bin/activate</span><br><span class="line">pip install -r requirements.txt --upgrade</span><br><span class="line">deactivate</span><br><span class="line"></span><br><span class="line"><span class="comment"># 5. 重启机器人</span></span><br><span class="line">sudo supervisorctl -c /etc/supervisor/supervisord.conf start lain_bot</span><br><span class="line"></span><br><span class="line"><span class="comment"># 6. 查看状态，确认正常运行</span></span><br><span class="line">sudo supervisorctl -c /etc/supervisor/supervisord.conf status lain_bot</span><br></pre></td></tr></table></figure>
+<h4 id="场景2：手动上传代码（未使用Git）"><a href="#场景2：手动上传代码（未使用Git）" class="headerlink" title="场景2：手动上传代码（未使用Git）"></a>场景2：手动上传代码（未使用Git）</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 停止机器人</span></span><br><span class="line">sudo supervisorctl -c /etc/supervisor/supervisord.conf stop lain_bot</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 用新文件覆盖旧文件（通过rz、FTP等方式上传）</span></span><br><span class="line"><span class="comment"># 3. 若更新依赖，进入虚拟环境安装</span></span><br><span class="line"><span class="built_in">source</span> /root/LAIN_BOT/venv/bin/activate</span><br><span class="line">pip install -r requirements.txt --upgrade</span><br><span class="line">deactivate</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 重启机器人</span></span><br><span class="line">sudo supervisorctl -c /etc/supervisor/supervisord.conf start lain_bot</span><br></pre></td></tr></table></figure>
+<h3 id="3-数据库文件修改（以SQLite为例，最常见）"><a href="#3-数据库文件修改（以SQLite为例，最常见）" class="headerlink" title="3. 数据库文件修改（以SQLite为例，最常见）"></a>3. 数据库文件修改（以SQLite为例，最常见）</h3><p>机器人常用SQLite数据库（单一.db文件），修改步骤如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 进入代码目录，找到数据库文件（如data.db）</span></span><br><span class="line"><span class="built_in">cd</span> /root/LAIN_BOT/BAbot_Lain/</span><br><span class="line"><span class="built_in">ls</span> *.db  <span class="comment"># 查看数据库文件</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 安装sqlite3工具（若未安装）</span></span><br><span class="line">sudo apt install sqlite3 -y</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 连接数据库</span></span><br><span class="line">sqlite3 data.db  <span class="comment"># 替换为你的数据库文件名</span></span><br></pre></td></tr></table></figure>
+<p>进入SQLite交互模式后，执行以下命令修改数据（按需调整）：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 查看所有表</span></span><br><span class="line">.tables</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 查看表结构（如users表）</span></span><br><span class="line">.schema users</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 查询数据（确认要修改的内容）</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> users <span class="keyword">WHERE</span> id <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 修改数据（如更新用户名）</span></span><br><span class="line"><span class="keyword">UPDATE</span> users <span class="keyword">SET</span> name <span class="operator">=</span> <span class="string">&#x27;新名称&#x27;</span> <span class="keyword">WHERE</span> id <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 删除数据（谨慎操作！）</span></span><br><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> users <span class="keyword">WHERE</span> id <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 退出交互模式</span></span><br><span class="line">.quit</span><br></pre></td></tr></table></figure>
+<p>修改后重启机器人，使新数据生效：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo supervisorctl -c /etc/supervisor/supervisord.conf restart lain_bot</span><br></pre></td></tr></table></figure>
+<p>注意：修改前建议备份数据库文件（如cp data.db data_backup.db），避免误操作导致数据丢失。</p>
+<h2 id="四、运维注意事项"><a href="#四、运维注意事项" class="headerlink" title="四、运维注意事项"></a>四、运维注意事项</h2><ol>
+<li><p>日志查看：若机器人运行异常，可通过日志排查问题（tail -f /root/LAIN_BOT/error.log）；</p>
+</li>
+<li><p>依赖管理：更新代码后，若涉及新依赖，必须重新安装，否则会报错；</p>
+</li>
+<li><p>备份习惯：数据库文件、重要配置文件定期备份，避免数据丢失；</p>
+</li>
+<li><p>进程管理：避免同时启动多个Supervisor进程，否则会导致冲突，启动前需用pkill -9 supervisord清理残留。</p>
+<blockquote>
+<p>（注：文档部分内容可能由 AI 生成）</p>
+</blockquote>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/03/30/%E6%B4%9B%E8%B0%B7P12000/" rel="prev" title="洛谷P12000">
+                  <i class="fa fa-angle-left"></i> 洛谷P12000
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">ZMCheng</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>
