@@ -1,0 +1,347 @@
+/* The title bar, activity bar, Explorer and editor share one viewport. */
+html {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr);
+  grid-template-rows: 42px minmax(0, 1fr);
+  width: 100%;
+  max-width: none;
+  height: calc(100vh - 28px);
+  height: calc(100dvh - 28px);
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.vs-header {
+  grid-column: 1 / -1;
+  grid-row: 1;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  padding: 0 16px;
+  background: var(--vscode-sidebar);
+  border-bottom: 1px solid var(--vscode-border);
+}
+
+.nav-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  color: var(--vscode-text);
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.nav-brand:hover {
+  color: var(--vscode-text);
+}
+
+.nav-brand span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.nav-brand i {
+  color: var(--vscode-accent);
+}
+
+.activity-bar {
+  grid-column: 1;
+  grid-row: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  min-height: 0;
+  background: var(--vscode-sidebar);
+  border-right: 1px solid var(--vscode-border);
+}
+
+.activity-item {
+  position: relative;
+  flex: 0 0 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--vscode-text-light);
+  font-size: 20px;
+  border-left: 2px solid transparent;
+  text-decoration: none;
+}
+
+.activity-item:hover,
+.activity-item:focus-visible {
+  color: var(--vscode-text);
+  background: var(--vscode-active);
+}
+
+.activity-item.active {
+  color: var(--vscode-text);
+  border-left-color: var(--vscode-accent);
+}
+
+.activity-item:focus-visible {
+  outline: 2px solid var(--vscode-accent);
+  outline-offset: -4px;
+}
+
+.activity-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.vscode-container {
+  grid-column: 2;
+  grid-row: 2;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.sidebar-explorer {
+  position: relative;
+  top: auto;
+  flex: 0 0 250px;
+  width: 250px;
+  min-width: 0;
+  height: 100%;
+  min-height: 0;
+  padding: 10px 0 20px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--vscode-scrollbar) var(--vscode-sidebar);
+}
+
+.sidebar-explorer .section-content,
+.sidebar-explorer .section-content.tag-sidebar-list {
+  max-height: none;
+  overflow: visible;
+}
+
+.sidebar-explorer .section-content.collapsed {
+  display: none;
+}
+
+.editor-content {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  width: auto;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.tab-bar {
+  flex: 0 0 35px;
+  min-width: 0;
+}
+
+.content-area {
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--vscode-scrollbar) var(--vscode-bg);
+}
+
+.sidebar-explorer::-webkit-scrollbar,
+.content-area::-webkit-scrollbar {
+  display: block;
+  width: 9px;
+}
+
+.sidebar-explorer::-webkit-scrollbar-thumb,
+.content-area::-webkit-scrollbar-thumb {
+  background: var(--vscode-scrollbar);
+  border-radius: 5px;
+}
+
+.sidebar-explorer::-webkit-scrollbar-track {
+  background: var(--vscode-sidebar);
+}
+
+.content-area::-webkit-scrollbar-track {
+  background: var(--vscode-bg);
+}
+
+/* Lists and search results flow into the editor's single scroll area. */
+.content-area .category-posts:not(.collapsed),
+.content-area .vs-search-results {
+  max-height: none;
+  overflow-y: visible;
+}
+
+.wrapper > .container {
+  grid-column: 2;
+  grid-row: 2;
+  width: 100%;
+  max-width: none;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.footer {
+  position: fixed;
+  inset: auto 0 0;
+  display: flex;
+  align-items: center;
+  height: 28px;
+  margin: 0;
+  z-index: 100;
+}
+
+.footer .status-bar {
+  width: 100%;
+  padding: 0 12px;
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  body,
+  body.sidebar-open {
+    position: static;
+    width: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  body.sidebar-open {
+    overflow-y: hidden;
+  }
+
+  .wrapper {
+    display: block;
+    width: 100%;
+    height: auto;
+    min-height: calc(100dvh - 90px);
+    padding: 0 !important;
+    overflow: visible;
+  }
+
+  .vs-header {
+    position: sticky;
+    top: 0;
+    z-index: 60;
+    height: 42px;
+    padding-left: 54px;
+  }
+
+  .wrapper.no-explorer .vs-header {
+    padding-left: 16px;
+  }
+
+  .activity-bar {
+    position: sticky;
+    top: 42px;
+    z-index: 55;
+    flex-direction: row;
+    justify-content: space-around;
+    height: 48px;
+    min-height: 48px;
+    overflow-x: auto;
+    border-right: 0;
+    border-bottom: 1px solid var(--vscode-border);
+  }
+
+  .activity-item {
+    flex: 1 0 46px;
+    flex-direction: column;
+    gap: 2px;
+    height: 48px;
+    border-left: 0;
+    border-bottom: 2px solid transparent;
+    font-size: 16px;
+  }
+
+  .activity-label {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip-path: none;
+    font-size: 10px;
+    line-height: 1;
+  }
+
+  .activity-item.active {
+    border-left: 0;
+    border-bottom-color: var(--vscode-accent);
+  }
+
+  .vscode-container {
+    display: block;
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    overflow: visible;
+  }
+
+  .sidebar-explorer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 82%;
+    max-width: 320px;
+    height: 100vh;
+    height: 100dvh;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  .editor-content {
+    display: block;
+    width: 100%;
+    overflow: visible;
+  }
+
+  .tab-bar {
+    position: sticky;
+    top: 90px;
+    z-index: 50;
+  }
+
+  .content-area {
+    overflow: visible;
+  }
+
+  .wrapper > .container {
+    height: auto;
+    overflow: visible;
+    padding: 12px;
+  }
+
+  .footer {
+    position: relative;
+    display: block;
+    height: auto;
+    margin: 0;
+  }
+
+  .footer .status-bar {
+    white-space: normal;
+  }
+}

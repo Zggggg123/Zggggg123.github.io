@@ -1,60 +1,88 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width">
-<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+<html lang="zh-CN" data-theme="dark" data-default-theme="dark">
+  <head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <script>
+    try {
+      const savedTheme = localStorage.getItem('vsc4t-user-theme');
+      if (savedTheme === 'dark' || savedTheme === 'white') document.documentElement.setAttribute('data-theme', savedTheme);
+    } catch (_) { /* Storage may be unavailable. */ }
+  </script>
+  <title>洛谷P1223 | 鱼塘</title>
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/128.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/16.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="记录洛谷 P1223 的贪心思路：按接水时间排序，计算平均等待时间。">
+  <meta name="keywords" content="C++,洛谷,贪心">
+  <meta name="author" content="ZMCheng">
+  <link rel="canonical" href="https://zggggg123.github.io/2025/03/18/%E6%B4%9B%E8%B0%B7P1223/">
 
-<link rel="stylesheet" href="/css/main.css">
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="洛谷P1223 | 鱼塘">
+  <meta property="og:description" content="记录洛谷 P1223 的贪心思路：按接水时间排序，计算平均等待时间。">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://zggggg123.github.io/2025/03/18/%E6%B4%9B%E8%B0%B7P1223/">
+  <meta property="og:site_name" content="鱼塘">
+  <meta property="article:published_time" content="2025-03-18T03:59:19.000Z">
 
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="洛谷P1223 | 鱼塘">
+  <meta name="twitter:description" content="记录洛谷 P1223 的贪心思路：按接水时间排序，计算平均等待时间。">
 
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
-
-<script class="next-config" data-name="main" type="application/json">{"hostname":"zggggg123.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.18.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
-
-    <meta name="description" content="题目：P1223 排队接水题目需要输出平均时间最短的排队顺序和平均等待时间，用贪心可解。">
-<meta property="og:type" content="article">
-<meta property="og:title" content="洛谷P1223">
-<meta property="og:url" content="https://zggggg123.github.io/2025/03/18/%E6%B4%9B%E8%B0%B7P1223/index.html">
-<meta property="og:site_name" content="鱼塘">
-<meta property="og:description" content="题目：P1223 排队接水题目需要输出平均时间最短的排队顺序和平均等待时间，用贪心可解。">
-<meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-03-18T03:59:19.000Z">
-<meta property="article:modified_time" content="2025-03-18T04:28:13.723Z">
-<meta property="article:author" content="ZMCheng">
-<meta name="twitter:card" content="summary">
-
-
-<link rel="canonical" href="https://zggggg123.github.io/2025/03/18/%E6%B4%9B%E8%B0%B7P1223/">
-
-
-
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://zggggg123.github.io/2025/03/18/%E6%B4%9B%E8%B0%B7P1223/","path":"2025/03/18/洛谷P1223/","title":"洛谷P1223"}</script>
-
-<script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>洛谷P1223 | 鱼塘</title>
+  <!-- Favicon 配置 -->
+  
+    
+    
+    
+      <link rel="icon" type="image/png" sizes="32x32" href="../../../../images/32.png">
+    
+    
+    
+      <link rel="apple-touch-icon" sizes="180x180" href="../../../../images/128.png">
+    
   
 
+  <!-- 外部样式 - 统一使用 jsdelivr CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" crossorigin="anonymous">
 
+  <!-- 代码高亮样式 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.7.0/styles/atom-one-dark.min.css" crossorigin="anonymous">
 
+  <!-- Mermaid.js 库 (defer加载) -->
+  <script defer src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js" crossorigin="anonymous"></script>
 
+  <!-- 主题样式 -->
+  <link rel="stylesheet" href="../../../../css/theme-colors.css">
+  <link rel="stylesheet" href="../../../../css/main.css">
+  <link rel="stylesheet" href="../../../../css/code.css">
+  <link rel="stylesheet" href="../../../../css/code-custom.css">
+  <link rel="stylesheet" href="../../../../css/code-languages.css">
+  <link rel="stylesheet" href="../../../../css/mermaid.css">
 
+  <link rel="stylesheet" href="../../../../css/vs-code.css">
+  <link rel="stylesheet" href="../../../../css/post.css?v=1790613545984">
+  <link rel="stylesheet" href="../../../../css/tag.css">
+  <link rel="stylesheet" href="../../../../css/categories.css">
+  <link rel="stylesheet" href="../../../../css/archive.css">
+  <link rel="stylesheet" href="../../../../css/search.css">
+  <link rel="stylesheet" href="../../../../css/mobile.css">
+  <link rel="stylesheet" href="../../../../css/responsive.css">
+  <link rel="stylesheet" href="../../../../css/elements.css">
+  <link rel="stylesheet" href="../../../../css/workspace-shell.css">
+  <link rel="stylesheet" href="../../../../css/status-bar.css">
 
+  <!-- 添加 JetBrains Mono 字体 -->  
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 
+  <!-- Add any custom head content here -->
 
-  <noscript>
-    <link rel="stylesheet" href="/css/noscript.css">
-  </noscript>
-<style>mjx-container[jax="SVG"] {
+  <script defer src="../../../../js/explorer.js"></script>
+  <script defer src="../../../../js/toc-highlight.js"></script>
+  <script defer src="../../../../js/code-enhance.js"></script>
+<meta name="generator" content="Hexo 6.3.0"><style>mjx-container[jax="SVG"] {
   direction: ltr;
 }
 
@@ -168,271 +196,741 @@ mjx-container[display="true"] + br {
 }
 </style></head>
 
-<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
-  <div class="headband"></div>
+  <body>
+    <div class="wrapper">
+      <button class="mobile-menu-toggle" type="button" aria-label="打开资源管理器" aria-expanded="false" aria-controls="sidebar-explorer">
+        <i class="fas fa-bars" aria-hidden="true"></i>
+      </button>
+      <!-- 移动端侧边栏遮罩层 -->
+      <div class="sidebar-overlay" aria-hidden="true"></div>
+      <header class="vs-header" role="banner">
+  <a href="/" class="nav-brand">
+    <i class="fas fa-terminal" aria-hidden="true"></i>
+    <span>鱼塘</span>
+  </a>
+</header>
 
-  <main class="main">
-    <div class="column">
-      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏" role="button">
-        <span class="toggle-line"></span>
-        <span class="toggle-line"></span>
-        <span class="toggle-line"></span>
-    </div>
-  </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <i class="logo-line"></i>
-      <p class="site-title">鱼塘</p>
-      <i class="logo-line"></i>
-    </a>
-      <p class="site-subtitle" itemprop="description">何故怀瑾若瑜，而自令见放为？</p>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger" aria-label="搜索" role="button">
-    </div>
-  </div>
-</div>
-
-
-
-<nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-schedule"><a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a></li>
-  </ul>
+<nav class="activity-bar" aria-label="网站导航">
+  <a href="/" class="activity-item active" title="首页" >
+    <i class="fas fa-home" aria-hidden="true"></i><span class="activity-label">首页</span>
+  </a>
+  <a href="/archives/" class="activity-item " title="归档" >
+    <i class="fas fa-archive" aria-hidden="true"></i><span class="activity-label">归档</span>
+  </a>
+  <a href="/categories/" class="activity-item " title="分类" >
+    <i class="fas fa-folder" aria-hidden="true"></i><span class="activity-label">分类</span>
+  </a>
+  <a href="/tags/" class="activity-item " title="标签" >
+    <i class="fas fa-tags" aria-hidden="true"></i><span class="activity-label">标签</span>
+  </a>
+  <a href="/search/" class="activity-item " title="搜索" >
+    <i class="fas fa-search" aria-hidden="true"></i><span class="activity-label">搜索</span>
+  </a>
+  <a href="/about/" class="activity-item " title="关于" >
+    <i class="fas fa-info-circle" aria-hidden="true"></i><span class="activity-label">关于</span>
+  </a>
 </nav>
 
 
-
-
-</header>
+<div class="vscode-container">
+  <!-- 左侧资源管理器 -->
+  <div class="sidebar-explorer" id="sidebar-explorer">
+    <!-- TOC导航 -->
+    <div class="explorer-section">
+      <div class="section-header">
+        <i class="fas fa-list"></i>
+        <span>目录</span>
+      </div>
+      <div class="section-content">
         
-  
-  <aside class="sidebar">
-
-    <div class="sidebar-inner sidebar-overview-active">
-      <ul class="sidebar-nav">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
-      </ul>
-
-      <div class="sidebar-panel-container">
-        <!--noindex-->
-        <div class="post-toc-wrap sidebar-panel">
-        </div>
-        <!--/noindex-->
-
-        <div class="site-overview-wrap sidebar-panel">
-          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="ZMCheng"
-      src="/images/IMG_0024.png">
-  <p class="site-author-name" itemprop="name">ZMCheng</p>
-  <div class="site-description" itemprop="description">摆的稳定</div>
-</div>
-<div class="site-state-wrap animated">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-        <a href="/archives/">
-          <span class="site-state-item-count">8</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
       </div>
-      <div class="site-state-item site-state-categories">
-          <a href="/categories/">
-        <span class="site-state-item-count">3</span>
-        <span class="site-state-item-name">分类</span></a>
+    </div>
+
+    <!-- 同分类文章 -->
+    
+    <div class="explorer-section">
+      <div class="section-header">
+        <i class="fas fa-folder"></i>
+        <span>同分类文章</span>
       </div>
-      <div class="site-state-item site-state-tags">
-          <a href="/tags/">
-        <span class="site-state-item-count">6</span>
-        <span class="site-state-item-name">标签</span></a>
+      <div class="section-content">
+        
+          <div class="file">
+            <i class="fas fa-file-code"></i>
+            <a href="../../30/%E6%B4%9B%E8%B0%B7P12000/">洛谷P12000</a>
+          </div>
+        
+          <div class="file">
+            <i class="fas fa-file-code"></i>
+            <a href="../../16/%E6%B4%9B%E8%B0%B7P1957/">洛谷P1957</a>
+          </div>
+        
       </div>
-  </nav>
-</div>
-  <div class="links-of-author animated">
-      <span class="links-of-author-item">
-        <a href="https://github.com/Zggggg123" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Zggggg123" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="https://steamcommunity.com/profiles/76561198368406207/" title="Steam → https:&#x2F;&#x2F;steamcommunity.com&#x2F;profiles&#x2F;76561198368406207&#x2F;" rel="noopener me" target="_blank"><i class="fab fa-steam fa-fw"></i>Steam</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="https://space.bilibili.com/355774967" title="Bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;355774967" rel="noopener me" target="_blank"><i class="fab fa-bilibili fa-fw"></i>Bilibili</a>
-      </span>
+    </div>
+    
+    
+    <!-- 标签列表 -->
+    
+    <div class="explorer-section">
+      <div class="section-header">
+        <i class="fas fa-tags"></i>
+        <span>文章标签</span>
+      </div>
+      <div class="section-content">
+        
+          <div class="tag-item">
+            <i class="fas fa-tag"></i>
+            <a href="../../../../tags/C/">C++</a>
+            <span class="count">(3)</span>
+          </div>
+        
+          <div class="tag-item">
+            <i class="fas fa-tag"></i>
+            <a href="../../../../tags/%E6%B4%9B%E8%B0%B7/">洛谷</a>
+            <span class="count">(3)</span>
+          </div>
+        
+          <div class="tag-item">
+            <i class="fas fa-tag"></i>
+            <a href="../../../../tags/%E8%B4%AA%E5%BF%83/">贪心</a>
+            <span class="count">(1)</span>
+          </div>
+        
+      </div>
+    </div>
+    
   </div>
 
-        </div>
+  <!-- 主要内容区域 -->
+  <div class="editor-content">
+    <div class="tab-bar">
+      <div class="tab active">
+        <i class="fas fa-file-alt"></i>
+        <span>洛谷P1223.md</span>
       </div>
     </div>
-
     
-    <div class="sidebar-inner sidebar-blogroll">
-      <div class="links-of-blogroll animated">
-        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
-          链接
-        </div>
-        <ul class="links-of-blogroll-list">
-            <li class="links-of-blogroll-item">
-              <a href="https://www.maonie.top/" title="https:&#x2F;&#x2F;www.maonie.top&#x2F;" rel="noopener" target="_blank">猫捏的秘密结社</a>
-            </li>
-        </ul>
-      </div>
-    </div>
-  </aside>
-
-
-    </div>
-
-    <div class="main-inner post posts-expand">
-
-
-  
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://zggggg123.github.io/2025/03/18/%E6%B4%9B%E8%B0%B7P1223/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/IMG_0024.png">
-      <meta itemprop="name" content="ZMCheng">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="鱼塘">
-      <meta itemprop="description" content="摆的稳定">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="洛谷P1223 | 鱼塘">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          洛谷P1223
-        </h1>
-
-        <div class="post-meta-container">
+    <div class="content-area">
+      <article class="post-content">
+        <div class="post-header">
+          <h1>洛谷P1223</h1>
           <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2025-03-18 11:59:19 / 修改时间：12:28:13" itemprop="dateCreated datePublished" datetime="2025-03-18T11:59:19+08:00">2025-03-18</time>
-    </span>
-
-  
-</div>
-
+            <span class="date">
+              <i class="fas fa-calendar-alt"></i>
+              2025-03-18
+            </span>
+            
+            <span class="updated-date">
+              <i class="fas fa-sync-alt"></i>
+              更新于 2026-09-28
+            </span>
+                        
+              <span class="categories">
+                <i class="fas fa-folder"></i>
+                <div class="categories-list">
+                  <ul class="category-item-post-list"><li class="category-item-post-list-item"><a class="category-item-post-list-link" href="../../../../categories/%E7%AE%97%E6%B3%95%E7%BB%83%E4%B9%A0/">算法练习</a></li></ul>
+                </div>
+              </span>
+            
+            
+              <span class="tags">
+                <i class="fas fa-tags"></i>
+                <div class="tags-list">
+                  <ul class="tag-item-post-list" itemprop="keywords"><li class="tag-item-post-list-item"><a class="tag-item-post-list-link" href="../../../../tags/C/" rel="tag">C++</a></li><li class="tag-item-post-list-item"><a class="tag-item-post-list-link" href="../../../../tags/%E6%B4%9B%E8%B0%B7/" rel="tag">洛谷</a></li><li class="tag-item-post-list-item"><a class="tag-item-post-list-link" href="../../../../tags/%E8%B4%AA%E5%BF%83/" rel="tag">贪心</a></li></ul>
+                </div>
+              </span>
+            
+          </div>
         </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody"><p>题目：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1223">P1223 排队接水</a><br>题目需要输出平均时间最短的排队顺序和平均等待时间，用贪心可解。<br><span id="more"></span><br>创建结构体数组存储初始的序号和所用时间，再自定义cmp函数，对时间从小到大排序，最后输出序号。</p>
+        
+        <div class="post-body vscode-markdown">
+          <p>题目：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1223">P1223 排队接水</a><br>题目需要输出平均时间最短的排队顺序和平均等待时间，用贪心可解。<br><span id="more"></span><br>创建结构体数组存储初始的序号和所用时间，再自定义cmp函数，对时间从小到大排序，最后输出序号。</p>
 <p>平均等待时间为每个人等待时间的和除以人数，设共有n个人，第i个人接水时他身后所有人都需要等待t的时间，由此可以推出方程为</p>
 <p><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.777ex;" xmlns="http://www.w3.org/2000/svg" width="29.425ex" height="2.563ex" role="img" focusable="false" viewBox="0 -789.6 13005.7 1132.9"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path></g><g data-mml-node="mi" transform="translate(529,0)"><path data-c="1D463" d="M173 380Q173 405 154 405Q130 405 104 376T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Q21 294 29 316T53 368T97 419T160 441Q202 441 225 417T249 361Q249 344 246 335Q246 329 231 291T200 202T182 113Q182 86 187 69Q200 26 250 26Q287 26 319 60T369 139T398 222T409 277Q409 300 401 317T383 343T365 361T357 383Q357 405 376 424T417 443Q436 443 451 425T467 367Q467 340 455 284T418 159T347 40T241 -11Q177 -11 139 22Q102 54 102 117Q102 148 110 181T151 298Q173 362 173 380Z"></path></g><g data-mml-node="mi" transform="translate(1014,0)"><path data-c="1D454" d="M311 43Q296 30 267 15T206 0Q143 0 105 45T66 160Q66 265 143 353T314 442Q361 442 401 394L404 398Q406 401 409 404T418 412T431 419T447 422Q461 422 470 413T480 394Q480 379 423 152T363 -80Q345 -134 286 -169T151 -205Q10 -205 10 -137Q10 -111 28 -91T74 -71Q89 -71 102 -80T116 -111Q116 -121 114 -130T107 -144T99 -154T92 -162L90 -164H91Q101 -167 151 -167Q189 -167 211 -155Q234 -144 254 -122T282 -75Q288 -56 298 -13Q311 35 311 43ZM384 328L380 339Q377 350 375 354T369 368T359 382T346 393T328 402T306 405Q262 405 221 352Q191 313 171 233T151 117Q151 38 213 38Q269 38 323 108L331 118L384 328Z"></path></g><g data-mml-node="mi" transform="translate(1491,0)"><path data-c="1D461" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path></g><g data-mml-node="mi" transform="translate(1852,0)"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(2197,0)"><path data-c="1D45A" d="M21 287Q22 293 24 303T36 341T56 388T88 425T132 442T175 435T205 417T221 395T229 376L231 369Q231 367 232 367L243 378Q303 442 384 442Q401 442 415 440T441 433T460 423T475 411T485 398T493 385T497 373T500 364T502 357L510 367Q573 442 659 442Q713 442 746 415T780 336Q780 285 742 178T704 50Q705 36 709 31T724 26Q752 26 776 56T815 138Q818 149 821 151T837 153Q857 153 857 145Q857 144 853 130Q845 101 831 73T785 17T716 -10Q669 -10 648 17T627 73Q627 92 663 193T700 345Q700 404 656 404H651Q565 404 506 303L499 291L466 157Q433 26 428 16Q415 -11 385 -11Q372 -11 364 -4T353 8T350 18Q350 29 384 161L420 307Q423 322 423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 181Q151 335 151 342Q154 357 154 369Q154 405 129 405Q107 405 92 377T69 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(3075,0)"><path data-c="1D452" d="M39 168Q39 225 58 272T107 350T174 402T244 433T307 442H310Q355 442 388 420T421 355Q421 265 310 237Q261 224 176 223Q139 223 138 221Q138 219 132 186T125 128Q125 81 146 54T209 26T302 45T394 111Q403 121 406 121Q410 121 419 112T429 98T420 82T390 55T344 24T281 -1T205 -11Q126 -11 83 42T39 168ZM373 353Q367 405 305 405Q272 405 244 391T199 357T170 316T154 280T149 261Q149 260 169 260Q282 260 327 284T373 353Z"></path></g><g data-mml-node="mo" transform="translate(3818.8,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="munderover" transform="translate(4874.6,0)"><g data-mml-node="mo"><path data-c="2211" d="M61 748Q64 750 489 750H913L954 640Q965 609 976 579T993 533T999 516H979L959 517Q936 579 886 621T777 682Q724 700 655 705T436 710H319Q183 710 183 709Q186 706 348 484T511 259Q517 250 513 244L490 216Q466 188 420 134T330 27L149 -187Q149 -188 362 -188Q388 -188 436 -188T506 -189Q679 -189 778 -162T936 -43Q946 -27 959 6H999L913 -249L489 -250Q65 -250 62 -248Q56 -246 56 -239Q56 -234 118 -161Q186 -81 245 -11L428 206Q428 207 242 462L57 717L56 728Q56 744 61 748Z"></path></g><g data-mml-node="mi" transform="translate(1089,477.1) scale(0.707)"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="TeXAtom" transform="translate(1089,-285.4) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(345,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mn" transform="translate(1123,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g></g></g><g data-mml-node="msub" transform="translate(7327.9,0)"><g data-mml-node="mi"><path data-c="1D461" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path></g><g data-mml-node="mi" transform="translate(394,-150) scale(0.707)"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g></g><g data-mml-node="mo" transform="translate(8238,0)"><path data-c="2217" d="M229 286Q216 420 216 436Q216 454 240 464Q241 464 245 464T251 465Q263 464 273 456T283 436Q283 419 277 356T270 286L328 328Q384 369 389 372T399 375Q412 375 423 365T435 338Q435 325 425 315Q420 312 357 282T289 250L355 219L425 184Q434 175 434 161Q434 146 425 136T401 125Q393 125 383 131T328 171L270 213Q283 79 283 63Q283 53 276 44T250 35Q231 35 224 44T216 63Q216 80 222 143T229 213L171 171Q115 130 110 127Q106 124 100 124Q87 124 76 134T64 161Q64 166 64 169T67 175T72 181T81 188T94 195T113 204T138 215T170 230T210 250L74 315Q65 324 65 338Q65 353 74 363T98 374Q106 374 116 368T171 328L229 286Z"></path></g><g data-mml-node="mo" transform="translate(8960.3,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(9349.3,0)"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(10171.5,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="mi" transform="translate(11171.7,0)"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(11516.7,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g><g data-mml-node="TeXAtom" data-mjx-texclass="ORD" transform="translate(11905.7,0)"><g data-mml-node="mo"><path data-c="2F" d="M423 750Q432 750 438 744T444 730Q444 725 271 248T92 -240Q85 -250 75 -250Q68 -250 62 -245T56 -231Q56 -221 230 257T407 740Q411 750 423 750Z"></path></g></g><g data-mml-node="mi" transform="translate(12405.7,0)"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g></g></g></svg></mjx-container></p>
-<p>总程序为：<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;bits/stdc++.h&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">struct dui</span><br><span class="line">{</span><br><span class="line">	int num, time;</span><br><span class="line">}a[1010];</span><br><span class="line">bool cmp(dui a, dui b)</span><br><span class="line">{</span><br><span class="line">	if (a.time != b.time)</span><br><span class="line">		return a.time &lt; b.time;</span><br><span class="line">	else</span><br><span class="line">		return a.num &lt; b.num;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">signed main()</span><br><span class="line">{</span><br><span class="line">	double sum = 0;</span><br><span class="line">	int n; cin &gt;&gt; n;</span><br><span class="line">	for (int i = 1; i &lt;= n; i++)</span><br><span class="line">	{</span><br><span class="line">		a[i].num = i;</span><br><span class="line">		cin &gt;&gt; a[i].time;</span><br><span class="line">	}</span><br><span class="line">	sort(a + 1, a + 1 + n, cmp);</span><br><span class="line">	for (int i = 1; i &lt;= n; i++)</span><br><span class="line">	{</span><br><span class="line">		sum += a[i].time * (n - i);</span><br><span class="line">		cout &lt;&lt; a[i].num &lt;&lt; " \n"[i == n];</span><br><span class="line">	}</span><br><span class="line">	cout &lt;&lt; fixed &lt;&lt; setprecision(2) &lt;&lt; sum / n &lt;&lt; endl;</span><br><span class="line">	return 0;</span><br><span class="line">}</span><br></pre></td></tr></table></figure></p>
+<p>总程序为：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;bits/stdc++.h&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><span class="hljs-keyword">struct</span> <span class="hljs-title class_">dui</span><br>{<br>	<span class="hljs-type">int</span> num, time;<br>}a[<span class="hljs-number">1010</span>];<br><span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">cmp</span><span class="hljs-params">(dui a, dui b)</span></span><br><span class="hljs-function"></span>{<br>	<span class="hljs-keyword">if</span> (a.time != b.time)<br>		<span class="hljs-keyword">return</span> a.time &lt; b.time;<br>	<span class="hljs-keyword">else</span><br>		<span class="hljs-keyword">return</span> a.num &lt; b.num;<br>}<br><br><span class="hljs-function"><span class="hljs-type">signed</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>{<br>	<span class="hljs-type">double</span> sum = <span class="hljs-number">0</span>;<br>	<span class="hljs-type">int</span> n; cin &gt;&gt; n;<br>	<span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++)<br>	{<br>		a[i].num = i;<br>		cin &gt;&gt; a[i].time;<br>	}<br>	<span class="hljs-built_in">sort</span>(a + <span class="hljs-number">1</span>, a + <span class="hljs-number">1</span> + n, cmp);<br>	<span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++)<br>	{<br>		sum += a[i].time * (n - i);<br>		cout &lt;&lt; a[i].num &lt;&lt; <span class="hljs-string">" \n"</span>[i == n];<br>	}<br>	cout &lt;&lt; fixed &lt;&lt; <span class="hljs-built_in">setprecision</span>(<span class="hljs-number">2</span>) &lt;&lt; sum / n &lt;&lt; endl;<br>	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>}<br></code></pre></td></tr></table></figure></p>
 
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
+        </div>
 
         
+        
+        <!-- 文章导航 - 只在同分类有多篇文章时显示 -->
+        
+        
+        
+        <nav class="post-nav">
+          
+            <a class="prev" href="../../30/%E6%B4%9B%E8%B0%B7P12000/">
+              <i class="fas fa-chevron-left"></i>
+              洛谷P12000
+            </a>
+          
+          
+            <a class="next" href="../../16/%E6%B4%9B%E8%B0%B7P1957/">
+              洛谷P1957
+              <i class="fas fa-chevron-right"></i>
+            </a>
+          
+        </nav>
+        
+        
+        <!-- 推荐文章 -->
+        
 
-          <div class="post-nav">
-            <div class="post-nav-item">
-                <a href="/2025/03/16/%E6%B4%9B%E8%B0%B7P1957/" rel="prev" title="洛谷P1957">
-                  <i class="fa fa-angle-left"></i> 洛谷P1957
-                </a>
+
+<div class="vs-recommended-posts">
+  <div class="vs-recommended-header">
+    <div class="section-header">
+      <i class="fas fa-lightbulb"></i>
+      <span>相关文章</span>
+    </div>
+  </div>
+  
+  <div class="vs-recommended-grid">
+    
+      <div class="vs-recommended-item" data-index="0" tabindex="0">
+        <a href="../../16/%E6%B4%9B%E8%B0%B7P1957/" class="vs-recommended-link">
+          <!-- 文章信息 -->
+          <div class="vs-recommended-content">
+            <div class="vs-recommended-title">
+              <i class="fas fa-file-code"></i>
+              <span>洛谷P1957</span>
             </div>
-            <div class="post-nav-item">
-                <a href="/2025/03/30/%E6%B4%9B%E8%B0%B7P12000/" rel="next" title="洛谷P12000">
-                  洛谷P12000 <i class="fa fa-angle-right"></i>
-                </a>
+            
+            <div class="vs-recommended-excerpt">
+              题目：P1957题目的主要难点在于判断运算式的总长度，由于式子格式固定为 a ？b = c，扣除固定的两个运算符号，问题进一步转化为求每个数的位数(如为负数则加上负号)
+            </div>
+            
+            <div class="vs-recommended-meta">
+              
+              
+              
+                <span class="vs-tags-preview">
+                  <i class="fas fa-tags"></i>
+                  C++, 洛谷, 模拟
+                  
+                </span>
+              
+              
+              <span class="vs-meta-info">
+                <span class="vs-date">
+                  <i class="fas fa-calendar-alt"></i>
+                  3月 16
+                </span>
+                <span class="vs-reading-time">
+                  <i class="fas fa-clock"></i>
+                  2 min
+                </span>
+              </span>
             </div>
           </div>
-    </footer>
-  </article>
+        </a>
+      </div>
+    
+      <div class="vs-recommended-item" data-index="1" tabindex="0">
+        <a href="../../30/%E6%B4%9B%E8%B0%B7P12000/" class="vs-recommended-link">
+          <!-- 文章信息 -->
+          <div class="vs-recommended-content">
+            <div class="vs-recommended-title">
+              <i class="fas fa-file-code"></i>
+              <span>洛谷P12000</span>
+            </div>
+            
+            <div class="vs-recommended-excerpt">
+              题目：P12000 扶苏出勤日记（第一道绿题纪念） 代码如下（燃尽了，题解缓缓再发）：
+            </div>
+            
+            <div class="vs-recommended-meta">
+              
+              
+              
+                <span class="vs-tags-preview">
+                  <i class="fas fa-tags"></i>
+                  C++, 洛谷, 二分答案
+                  
+                    <span class="vs-more-tags">+1</span>
+                  
+                </span>
+              
+              
+              <span class="vs-meta-info">
+                <span class="vs-date">
+                  <i class="fas fa-calendar-alt"></i>
+                  3月 30
+                </span>
+                <span class="vs-reading-time">
+                  <i class="fas fa-clock"></i>
+                  2 min
+                </span>
+              </span>
+            </div>
+          </div>
+        </a>
+      </div>
+    
+      <div class="vs-recommended-item" data-index="2" tabindex="0">
+        <a href="../../../../2026/03/03/%E6%9C%BA%E5%99%A8%E4%BA%BA%E9%83%A8%E7%BD%B2%E4%B8%8E%E8%BF%90%E7%BB%B4/" class="vs-recommended-link">
+          <!-- 文章信息 -->
+          <div class="vs-recommended-content">
+            <div class="vs-recommended-title">
+              <i class="fas fa-file-code"></i>
+              <span>机器人部署与运维</span>
+            </div>
+            
+            <div class="vs-recommended-excerpt">
+              本文基于实际操作场景，整合机器人（以LAIN_BOT为例）在云服务器上的部署、常见问题解决及日常运维（启停、更新、数据库修改）全流程，适配Supervisor进程守护、Git代码管理等核心操作，适合新手快速上手，规避常见踩坑点。
+            </div>
+            
+            <div class="vs-recommended-meta">
+              
+              
+              
+                <span class="vs-tags-preview">
+                  <i class="fas fa-tags"></i>
+                  机器人, Linux, Supervisor
+                  
+                    <span class="vs-more-tags">+1</span>
+                  
+                </span>
+              
+              
+              <span class="vs-meta-info">
+                <span class="vs-date">
+                  <i class="fas fa-calendar-alt"></i>
+                  3月 03
+                </span>
+                <span class="vs-reading-time">
+                  <i class="fas fa-clock"></i>
+                  3 min
+                </span>
+              </span>
+            </div>
+          </div>
+        </a>
+      </div>
+    
+      <div class="vs-recommended-item" data-index="3" tabindex="0">
+        <a href="../../../../2024/05/28/%E4%B8%80%E9%94%AE%E5%88%87%E6%8D%A2%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" class="vs-recommended-link">
+          <!-- 文章信息 -->
+          <div class="vs-recommended-content">
+            <div class="vs-recommended-title">
+              <i class="fas fa-file-code"></i>
+              <span>一键切换网络配置</span>
+            </div>
+            
+            <div class="vs-recommended-excerpt">
+              起因由于家中装了软路由的缘故，产生了两个网关，一个是原本的网关，一个是软路由的网关，我可以改变设备的网关来决定数据是否经过软路由
+            </div>
+            
+            <div class="vs-recommended-meta">
+              
+              
+              
+                <span class="vs-tags-preview">
+                  <i class="fas fa-tags"></i>
+                  Windows, 网络配置, 批处理
+                  
+                </span>
+              
+              
+              <span class="vs-meta-info">
+                <span class="vs-date">
+                  <i class="fas fa-calendar-alt"></i>
+                  5月 28
+                </span>
+                <span class="vs-reading-time">
+                  <i class="fas fa-clock"></i>
+                  1 min
+                </span>
+              </span>
+            </div>
+          </div>
+        </a>
+      </div>
+    
+      <div class="vs-recommended-item" data-index="4" tabindex="0">
+        <a href="../../../../2023/09/17/%E5%86%99%E4%BD%9C%E6%8C%87%E5%AF%BC/" class="vs-recommended-link">
+          <!-- 文章信息 -->
+          <div class="vs-recommended-content">
+            <div class="vs-recommended-title">
+              <i class="fas fa-file-code"></i>
+              <span>写一篇博客</span>
+            </div>
+            
+            <div class="vs-recommended-excerpt">
+              好久没有写博客了，高三真tm不是人呆的，只能说自求多福了 TAT 为了防止好久不写博客忘记了怎么写，现在写一篇教程8（其实就是因为刚刚想写但是忘记怎么写了
+            </div>
+            
+            <div class="vs-recommended-meta">
+              
+              
+              
+                <span class="vs-tags-preview">
+                  <i class="fas fa-tags"></i>
+                  Hexo, Markdown, 写作
+                  
+                </span>
+              
+              
+              <span class="vs-meta-info">
+                <span class="vs-date">
+                  <i class="fas fa-calendar-alt"></i>
+                  9月 17
+                </span>
+                <span class="vs-reading-time">
+                  <i class="fas fa-clock"></i>
+                  1 min
+                </span>
+              </span>
+            </div>
+          </div>
+        </a>
+      </div>
+    
+      <div class="vs-recommended-item" data-index="5" tabindex="0">
+        <a href="../../../../2023/08/09/%E6%80%8E%E4%B9%88%E5%81%9AHTML%E7%BD%91%E9%A1%B5/" class="vs-recommended-link">
+          <!-- 文章信息 -->
+          <div class="vs-recommended-content">
+            <div class="vs-recommended-title">
+              <i class="fas fa-file-code"></i>
+              <span>怎么做HTML网页</span>
+            </div>
+            
+            <div class="vs-recommended-excerpt">
+              起因在美化博客过程中发现“about”页可以使用HTML自定义网页内容，但是我不会HTML捏 所以这篇博客先记录一下学习中发现的HTML网页在线编辑器
+            </div>
+            
+            <div class="vs-recommended-meta">
+              
+              
+              
+                <span class="vs-tags-preview">
+                  <i class="fas fa-tags"></i>
+                  Hexo, HTML
+                  
+                </span>
+              
+              
+              <span class="vs-meta-info">
+                <span class="vs-date">
+                  <i class="fas fa-calendar-alt"></i>
+                  8月 09
+                </span>
+                <span class="vs-reading-time">
+                  <i class="fas fa-clock"></i>
+                  1 min
+                </span>
+              </span>
+            </div>
+          </div>
+        </a>
+      </div>
+    
+  </div>
+  
+  <!-- 查看更多 -->
+  <div class="vs-recommended-footer">
+    <a href="../../../../archives/" class="vs-view-more">
+      <i class="fas fa-folder-open"></i>
+      <span>查看更多文章</span>
+      <i class="fas fa-chevron-right"></i>
+    </a>
+  </div>
 </div>
 
+<script>
+// 键盘导航支持
+document.addEventListener('DOMContentLoaded', function() {
+  const items = document.querySelectorAll('.vs-recommended-item');
+  let currentIndex = -1;
+  
+  // 键盘事件
+  document.addEventListener('keydown', function(e) {
+    if (!items.length) return;
+    
+    if (e.key === 'Tab') {
+      // Tab键导航由浏览器处理
+      return;
+    }
+    
+    if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+      e.preventDefault();
+      
+      // 移除当前高亮
+      if (currentIndex >= 0) {
+        items[currentIndex].classList.remove('vs-focused');
+      }
+      
+      // 更新索引
+      if (e.key === 'ArrowRight') {
+        currentIndex = (currentIndex + 1) % items.length;
+      } else {
+        currentIndex = currentIndex <= 0 ? items.length - 1 : currentIndex - 1;
+      }
+      
+      // 添加新高亮
+      items[currentIndex].classList.add('vs-focused');
+      items[currentIndex].focus();
+    }
+    
+    if (e.key === 'Enter' && currentIndex >= 0) {
+      const link = items[currentIndex].querySelector('a');
+      if (link) link.click();
+    }
+  });
+  
+  // 鼠标悬停时更新当前索引
+  items.forEach((item, index) => {
+    item.addEventListener('mouseenter', function() {
+      currentIndex = index;
+      items.forEach(i => i.classList.remove('vs-focused'));
+      item.classList.add('vs-focused');
+    });
+  });
+});
+</script>
 
-
-
-
-
+        
+        <!-- 评论区 -->
+        
+      </article>
+    </div>
+  </div>
 </div>
-  </main>
-
-  <footer class="footer">
-    <div class="footer-inner">
-
-  <div class="copyright">
-    &copy; 
-    <span itemprop="copyrightYear">2026</span>
-    <span class="with-love">
-      <i class="fa fa-heart"></i>
-    </span>
-    <span class="author" itemprop="copyrightHolder">ZMCheng</span>
-  </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
-  </div>
 
     </div>
-  </footer>
-
-  
-  <div class="back-to-top" role="button" aria-label="返回顶部">
-    <i class="fa fa-arrow-up fa-lg"></i>
-    <span>0%</span>
+    
+<footer class="footer">
+  <div class="reading-progress-track" id="reading-progress-track"  aria-hidden="true">
+    <div class="reading-progress-fill" id="reading-progress-fill"></div>
   </div>
+  <div class="status-bar" role="group" aria-label="网站状态栏">
+    <button class="status-button status-explorer-toggle" id="status-explorer-toggle" type="button" aria-label="显隐 Explorer" title="显隐 Explorer" aria-controls="sidebar-explorer" aria-expanded="true">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M5 6 10 12 5 18M19 6 14 12 19 18"></path>
+      </svg>
+    </button>
+    <button class="status-button" id="status-friends-toggle" type="button" aria-label="打开友链" title="友链" aria-controls="status-friends-drawer" aria-haspopup="dialog" aria-expanded="false">
+      <i class="fas fa-code-branch" aria-hidden="true"></i>
+    </button>
+    <span class="status-spacer"></span>
+    <span class="status-location" id="status-location" data-article="true">
+      文章 | <span class="status-location-name">洛谷P1223</span> · 已读 <span id="status-reading-percent">0%</span>
+    </span>
+    <button class="status-button" id="status-theme-toggle" type="button" aria-label="切换到浅色主题" title="切换到浅色主题" aria-pressed="false">
+      <svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+        <circle cx="10" cy="10" r="7"></circle>
+        <path d="M10 3a7 7 0 0 0 0 14Z" fill="currentColor" stroke="none"></path>
+      </svg>
+    </button>
+    <button class="status-button" id="status-announcements-toggle" type="button" aria-label="打开公告" title="公告" aria-controls="status-announcements-drawer" aria-haspopup="dialog" aria-expanded="false">
+      <i class="far fa-bell" aria-hidden="true"></i>
+    </button>
+  </div>
+</footer>
 
-<noscript>
-  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
-</noscript>
+<div class="status-drawer-scrim" id="status-drawer-scrim" hidden></div>
+<section class="status-drawer status-drawer-friends" id="status-friends-drawer" role="dialog" aria-modal="true" aria-labelledby="status-friends-title" hidden>
+  <div class="status-drawer-header">
+    <h2 id="status-friends-title">友链</h2>
+    <button class="status-drawer-close" type="button" aria-label="关闭友链" title="关闭友链"><i class="fas fa-times" aria-hidden="true"></i></button>
+  </div>
+  <div class="status-drawer-content">
+    
+      <ul class="status-friend-list">
+        
+          <li><a href="https://www.maonie.top/" target="_blank" rel="noopener noreferrer"><i class="fas fa-link" aria-hidden="true"></i><span>猫涅的秘密结社</span></a></li>
+        
+      </ul>
+    
+  </div>
+</section>
+<section class="status-drawer status-drawer-announcements" id="status-announcements-drawer" role="dialog" aria-modal="true" aria-labelledby="status-announcements-title" hidden>
+  <div class="status-drawer-header">
+    <h2 id="status-announcements-title">公告</h2>
+    <button class="status-drawer-close" type="button" aria-label="关闭公告" title="关闭公告"><i class="fas fa-times" aria-hidden="true"></i></button>
+  </div>
+  <div class="status-drawer-content">
+    
+      <p class="status-empty">暂无公告。</p>
+    
+  </div>
+</section>
 
 
-  
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
-<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+    <!-- 搜索专用配置 (HEXO_CONFIG 在 scripts.ejs 中统一定义) -->
+    <script>
+      window.VSC4T_SEARCH = {
+        root: "/"
+      };
+    </script>
 
-  
+    <!-- 外部脚本 - 统一使用 cdnjs CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    <!-- 这里可以放置自定义脚本 -->
+<script>
+document.addEventListener('DOMContentLoaded', (event) => {
+  // Apply smooth scroll to non-TOC anchor links
+  document.querySelectorAll('a[href^="#"]:not(.toc-link)').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      // Check if querySelector is valid before using it
+      try {
+        const targetSelector = this.getAttribute('href');
+        // Basic check for potentially invalid selectors (though not exhaustive)
+        if (targetSelector && targetSelector.length > 1) { 
+          const targetElement = document.querySelector(targetSelector);
+          if (targetElement) {
+            targetElement.scrollIntoView({
+              behavior: 'smooth'
+            });
+          } else {
+            console.warn('Smooth scroll target not found:', targetSelector);
+          }
+        } else {
+           console.warn('Invalid href for smooth scroll:', targetSelector);
+        }
+      } catch (error) {
+        console.error('Error during smooth scroll:', error, 'Selector:', this.getAttribute('href'));
+        // Fallback or alternative behavior if needed
+        // For example, try getElementById if it's just an ID
+        const targetId = this.getAttribute('href').slice(1);
+        try {
+            const targetElementById = document.getElementById(decodeURIComponent(targetId));
+            if (targetElementById) {
+                targetElementById.scrollIntoView({ behavior: 'smooth' });
+            }
+        } catch (idError) {
+             console.error('Fallback getElementById also failed:', idError);
+        }
+      }
+    });
+  });
+});
+</script>
+
+<!-- Scripts -->
+<script>
+  // 全局配置 - 包含 i18n 字符串和主题配置
+  window.HEXO_CONFIG = {
+    language: "zh-CN",
+    root: "/",
+    
+    theme_switch: {
+      enabled: false,
+      light_start: "06:00",
+      light_end: "18:00"
+    },
+    
+    // Search i18n strings
+    search_placeholder: "输入关键词搜索...",
+    search_no_results: "未找到相关结果",
+    search_result: "Ergebnis",
+    search_results: "搜索结果",
+    search_results_found: "找到 undefined 个结果",
+    search_in: "搜索范围",
+    search_in_title: "标题",
+    search_in_content: "内容",
+    search_in_tags: "标签",
+    search_in_categories: "分类",
+    search_filters: "搜索过滤器",
+    search_recent: "最近搜索",
+    search_clear: "清除",
+    search_loading: "加载中...",
+    search_error: "加载搜索数据时出错",
+    // Encryption i18n strings
+    encrypt_badge: "受保护",
+    encrypt_title: "受保护的内容",
+    encrypt_description: "请输入密码以解锁本文，密码会在本设备本地保存，直到你选择重新加密。",
+    encrypt_label: "密码",
+    encrypt_placeholder: "输入密码解锁内容",
+    encrypt_button: "解锁",
+    encrypt_button_loading: "解锁中...",
+    encrypt_hint: "按 Enter 提交，密码会在本设备上记住。",
+    encrypt_success: "内容解锁成功！",
+    encrypt_unlocked_note: "内容已解锁，可随时重新加密。",
+    encrypt_again: "重新加密",
+    encrypt_wrong_password: "密码错误，请重试。",
+    encrypt_show_password: "显示密码",
+    encrypt_hide_password: "隐藏密码",
+    // Sidebar i18n strings
+    sidebar_about: "关于",
+    sidebar_categories: "分类",
+    sidebar_tags: "标签",
+    // Post page i18n strings
+    post_toc: "目录",
+    post_category_posts: "同分类文章",
+    post_article_tags: "文章标签"
+  };
+</script>
 
 
 
+<!-- 添加所有需要的脚本 -->
+<script src="../../../../js/search.js"></script>
+<script src="../../../../js/theme-switch.js"></script>
 
-  <script src="/js/third-party/pace.js"></script>
+<script src="../../../../js/password-protect.js?v=1790613545985"></script>
 
+    <script>
+      // 移动端菜单切换
+      $(document).ready(function() {
+        var $body = $('body');
+        var $sidebar = $('.sidebar-explorer');
+        var $overlay = $('.sidebar-overlay');
+        var $toggle = $('.mobile-menu-toggle');
 
-  
+        if (!$sidebar.length) {
+          $toggle.hide();
+          $('.wrapper').addClass('no-explorer');
+        }
 
+        function openSidebar() {
+          $sidebar.addClass('show');
+          $overlay.addClass('show');
+          $toggle.addClass('active');
+          $body.addClass('sidebar-open');
+          $toggle.attr('aria-expanded', 'true');
+          $toggle.attr('aria-label', '关闭资源管理器');
+        }
 
+        function closeSidebar() {
+          $sidebar.removeClass('show');
+          $overlay.removeClass('show');
+          $toggle.removeClass('active');
+          $body.removeClass('sidebar-open');
+          $toggle.attr('aria-expanded', 'false');
+          $toggle.attr('aria-label', '打开资源管理器');
+        }
 
+        // 汉堡按钮点击切换
+        $toggle.on('click', function(e) {
+          e.stopPropagation();
+          if ($sidebar.hasClass('show')) {
+            closeSidebar();
+          } else {
+            openSidebar();
+          }
+        });
 
-  
+        // 点击遮罩层关闭
+        $overlay.on('click', function() {
+          closeSidebar();
+        });
 
-  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
-<script src="/js/third-party/math/mathjax.js"></script>
+        // ESC 键关闭
+        $(document).on('keydown', function(e) {
+          if (e.key === 'Escape' && $sidebar.hasClass('show')) {
+            closeSidebar();
+          }
+        });
 
-
-
-</body>
+        // 点击侧边栏内的链接时自动关闭侧边栏，确保锚点跳转正常
+        $sidebar.on('click', 'a', function() {
+          closeSidebar();
+        });
+      });
+    </script>
+    <script src="../../../../js/status-bar.js"></script>
+  </body>
 </html>

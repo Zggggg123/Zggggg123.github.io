@@ -1,0 +1,289 @@
+/* Interactive status bar and corner drawers. */
+.footer {
+  z-index: 100;
+  background: var(--vscode-footer-bg);
+  border-top: 1px solid var(--vscode-border);
+}
+
+.footer .status-bar {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: 100%;
+  padding: 0 5px;
+  color: var(--vscode-text);
+  white-space: nowrap;
+}
+
+.status-spacer {
+  flex: 1 1 auto;
+}
+
+.status-button,
+.status-drawer-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  min-width: 30px;
+  height: 26px;
+  padding: 0 7px;
+  color: var(--vscode-text);
+  background: transparent;
+  border: 0;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.status-button:hover,
+.status-drawer-close:hover,
+.status-button[aria-expanded="true"]:not(.status-explorer-toggle) {
+  background: var(--vscode-active);
+}
+
+.status-button:focus-visible,
+.status-drawer-close:focus-visible,
+.status-drawer a:focus-visible,
+.about-social-links a:focus-visible {
+  outline: 2px solid var(--vscode-accent);
+  outline-offset: -2px;
+}
+
+.status-button svg {
+  display: block;
+}
+
+.status-location {
+  display: block;
+  flex: 0 1 auto;
+  min-width: 0;
+  max-width: min(48vw, 480px);
+  padding: 0 6px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 11px;
+  line-height: 26px;
+}
+
+.reading-progress-track {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 2px;
+  background: transparent;
+  pointer-events: none;
+}
+
+.reading-progress-fill {
+  width: 0;
+  height: 100%;
+  background: var(--vscode-accent-light);
+}
+
+.status-drawer-scrim {
+  position: fixed;
+  inset: 0 0 28px;
+  z-index: 120;
+  background: rgba(0, 0, 0, 0.28);
+}
+
+.status-drawer {
+  position: fixed;
+  bottom: 28px;
+  z-index: 140;
+  display: flex;
+  flex-direction: column;
+  width: min(340px, calc(100vw - 16px));
+  max-height: min(60vh, 480px);
+  color: var(--vscode-text);
+  background: var(--vscode-sidebar);
+  border: 1px solid var(--vscode-border);
+  box-shadow: 0 -6px 24px var(--vscode-shadow);
+}
+
+.status-drawer-friends {
+  left: 0;
+}
+
+.status-drawer-announcements {
+  right: 0;
+}
+
+.status-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 0 0 auto;
+  min-height: 40px;
+  padding: 4px 8px 4px 14px;
+  border-bottom: 1px solid var(--vscode-border);
+}
+
+.status-drawer-header h2 {
+  margin: 0;
+  font-size: 13px;
+}
+
+.status-drawer-content {
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 12px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--vscode-scrollbar) var(--vscode-sidebar);
+}
+
+.status-drawer-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.status-drawer-content::-webkit-scrollbar-thumb {
+  background: var(--vscode-scrollbar);
+}
+
+.status-friend-list,
+.status-announcement-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.status-friend-list a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  border-radius: 4px;
+  color: var(--vscode-text);
+}
+
+.status-friend-list a:hover {
+  background: var(--vscode-active);
+}
+
+.status-friend-list i {
+  color: var(--vscode-accent-light);
+}
+
+.status-announcement-list li + li {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--vscode-border);
+}
+
+.status-announcement-list h3 {
+  margin: 0 0 6px;
+  font-size: 13px;
+}
+
+.status-announcement-list p,
+.status-empty {
+  margin: 0;
+  color: var(--vscode-text-light);
+  font-size: 12px;
+}
+
+.status-announcement-list p {
+  white-space: pre-wrap;
+}
+
+.status-drawer[hidden],
+.status-drawer-scrim[hidden],
+.reading-progress-track[hidden],
+.status-button[hidden] {
+  display: none !important;
+}
+
+.about-social {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--vscode-border);
+}
+
+.about-social h2 {
+  font-size: 16px;
+}
+
+.about-social-links {
+  display: flex;
+  gap: 10px;
+  margin: 12px 0 20px;
+}
+
+.about-social-links a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--vscode-border);
+  border-radius: 6px;
+  color: var(--vscode-text);
+  font-size: 22px;
+}
+
+.about-social-links a:hover {
+  color: var(--vscode-accent-light);
+  background: var(--vscode-active);
+}
+
+.about-theme-credit {
+  color: var(--vscode-text-light);
+  font-size: 12px;
+}
+
+@media (min-width: 769px) {
+  .wrapper.explorer-hidden .sidebar-explorer {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .wrapper {
+    padding-bottom: calc(48px + env(safe-area-inset-bottom)) !important;
+  }
+
+  .footer {
+    position: fixed;
+    inset: auto 0 0;
+    display: flex;
+    height: calc(48px + env(safe-area-inset-bottom));
+    padding: 0 0 env(safe-area-inset-bottom);
+    margin: 0;
+  }
+
+  .footer .status-bar {
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    padding: 0 5px;
+    white-space: nowrap;
+  }
+
+  .status-button {
+    min-width: 38px;
+    height: 42px;
+    font-size: 16px;
+  }
+
+  .status-location {
+    max-width: none;
+    font-size: 10px;
+  }
+
+  .status-drawer-scrim {
+    bottom: calc(48px + env(safe-area-inset-bottom));
+  }
+
+  .status-drawer {
+    left: 0;
+    right: 0;
+    bottom: calc(48px + env(safe-area-inset-bottom));
+    width: 100%;
+    max-height: 70dvh;
+    border-radius: 12px 12px 0 0;
+  }
+
+  body.status-drawer-open {
+    overflow-y: hidden;
+  }
+}
