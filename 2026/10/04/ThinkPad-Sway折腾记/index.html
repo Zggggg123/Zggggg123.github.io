@@ -10,26 +10,32 @@
       if (savedTheme === 'dark' || savedTheme === 'white') document.documentElement.setAttribute('data-theme', savedTheme);
     } catch (_) { /* Storage may be unavailable. */ }
   </script>
-  <title>第一篇博客兼部署采坑记 | 鱼塘</title>
+  <title>从虚拟机到 ThinkPad：我的 Linux 折腾记录 | 鱼塘</title>
 
   <!-- SEO Meta Tags -->
-  <meta name="description" content="记录 Hexo 博客部署与主题美化时踩过的坑，包括 GitHub Pages 仓库命名和背景样式。">
-  <meta name="keywords" content="Hexo,GitHub Pages,主题美化">
+  <meta name="description" content="最近买了台 ThinkPad 做副机，打算拿来看网课、写作业，顺便学 Linux。装系统倒没花太久，后面配平铺窗口管理器花了两天。
+把之前的虚拟机练习也算上，记一下这次从装系统到折腾桌面的过程。
+注：本文基本由ai总结，我只做小部分修改">
+  <meta name="keywords" content="Linux,ThinkPad,Ubuntu,Sway">
   <meta name="author" content="ZMCheng">
-  <link rel="canonical" href="https://zggggg123.github.io/2023/08/08/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2%E5%85%BC%E9%83%A8%E7%BD%B2%E9%87%87%E5%9D%91%E8%AE%B0/">
+  <link rel="canonical" href="https://zggggg123.github.io/2026/10/04/ThinkPad-Sway%E6%8A%98%E8%85%BE%E8%AE%B0/">
 
   <!-- Open Graph Meta Tags -->
-  <meta property="og:title" content="第一篇博客兼部署采坑记 | 鱼塘">
-  <meta property="og:description" content="记录 Hexo 博客部署与主题美化时踩过的坑，包括 GitHub Pages 仓库命名和背景样式。">
+  <meta property="og:title" content="从虚拟机到 ThinkPad：我的 Linux 折腾记录 | 鱼塘">
+  <meta property="og:description" content="最近买了台 ThinkPad 做副机，打算拿来看网课、写作业，顺便学 Linux。装系统倒没花太久，后面配平铺窗口管理器花了两天。
+把之前的虚拟机练习也算上，记一下这次从装系统到折腾桌面的过程。
+注：本文基本由ai总结，我只做小部分修改">
   <meta property="og:type" content="article">
-  <meta property="og:url" content="https://zggggg123.github.io/2023/08/08/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2%E5%85%BC%E9%83%A8%E7%BD%B2%E9%87%87%E5%9D%91%E8%AE%B0/">
+  <meta property="og:url" content="https://zggggg123.github.io/2026/10/04/ThinkPad-Sway%E6%8A%98%E8%85%BE%E8%AE%B0/">
   <meta property="og:site_name" content="鱼塘">
-  <meta property="article:published_time" content="2023-08-08T14:50:31.000Z">
+  <meta property="article:published_time" content="2026-10-04T14:00:00.000Z">
 
   <!-- Twitter Card Meta Tags -->
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="第一篇博客兼部署采坑记 | 鱼塘">
-  <meta name="twitter:description" content="记录 Hexo 博客部署与主题美化时踩过的坑，包括 GitHub Pages 仓库命名和背景样式。">
+  <meta name="twitter:title" content="从虚拟机到 ThinkPad：我的 Linux 折腾记录 | 鱼塘">
+  <meta name="twitter:description" content="最近买了台 ThinkPad 做副机，打算拿来看网课、写作业，顺便学 Linux。装系统倒没花太久，后面配平铺窗口管理器花了两天。
+把之前的虚拟机练习也算上，记一下这次从装系统到折腾桌面的过程。
+注：本文基本由ai总结，我只做小部分修改">
 
   <!-- Favicon 配置 -->
   
@@ -63,7 +69,7 @@
   <link rel="stylesheet" href="../../../../css/mermaid.css">
 
   <link rel="stylesheet" href="../../../../css/vs-code.css">
-  <link rel="stylesheet" href="../../../../css/post.css?v=1791126475594">
+  <link rel="stylesheet" href="../../../../css/post.css?v=1791126475591">
   <link rel="stylesheet" href="../../../../css/tag.css">
   <link rel="stylesheet" href="../../../../css/categories.css">
   <link rel="stylesheet" href="../../../../css/archive.css">
@@ -130,7 +136,7 @@
         <span>目录</span>
       </div>
       <div class="section-content">
-        
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%BB%83%E4%B9%A0"><span class="toc-text">一、虚拟机练习</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E9%80%89%E7%AC%94%E8%AE%B0%E6%9C%AC"><span class="toc-text">二、选笔记本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E7%AC%AC%E4%B8%80%E6%AC%A1-Linux-%E9%85%8D%E7%BD%AE%EF%BC%9A%E6%8A%98%E8%85%BE%E5%88%B0%E6%83%B3%E9%87%8D%E8%A3%85"><span class="toc-text">三、第一次 Linux 配置：折腾到想重装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E7%AC%AC%E4%BA%8C%E6%AC%A1-Linux-%E9%85%8D%E7%BD%AE%EF%BC%9A%E7%BB%88%E4%BA%8E%E8%83%BD%E7%94%A8%EF%BC%8C%E5%86%8D%E6%85%A2%E6%85%A2%E6%94%B9"><span class="toc-text">四、第二次 Linux 配置：终于能用，再慢慢改</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E7%AA%97%E5%8F%A3%E7%AE%A1%E7%90%86%E5%99%A8%E4%B8%8B%E7%9A%84%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE"><span class="toc-text">五、窗口管理器下的常用快捷键</span></a></li></ol>
       </div>
     </div>
 
@@ -142,16 +148,6 @@
         <span>同分类文章</span>
       </div>
       <div class="section-content">
-        
-          <div class="file">
-            <i class="fas fa-file-code"></i>
-            <a href="../../../09/17/%E5%86%99%E4%BD%9C%E6%8C%87%E5%AF%BC/">写一篇博客</a>
-          </div>
-        
-          <div class="file">
-            <i class="fas fa-file-code"></i>
-            <a href="../../09/%E6%80%8E%E4%B9%88%E5%81%9AHTML%E7%BD%91%E9%A1%B5/">怎么做HTML网页</a>
-          </div>
         
       </div>
     </div>
@@ -168,19 +164,25 @@
         
           <div class="tag-item">
             <i class="fas fa-tag"></i>
-            <a href="../../../../tags/Hexo/">Hexo</a>
-            <span class="count">(3)</span>
+            <a href="../../../../tags/Linux/">Linux</a>
+            <span class="count">(2)</span>
           </div>
         
           <div class="tag-item">
             <i class="fas fa-tag"></i>
-            <a href="../../../../tags/GitHub-Pages/">GitHub Pages</a>
+            <a href="../../../../tags/ThinkPad/">ThinkPad</a>
             <span class="count">(1)</span>
           </div>
         
           <div class="tag-item">
             <i class="fas fa-tag"></i>
-            <a href="../../../../tags/%E4%B8%BB%E9%A2%98%E7%BE%8E%E5%8C%96/">主题美化</a>
+            <a href="../../../../tags/Ubuntu/">Ubuntu</a>
+            <span class="count">(1)</span>
+          </div>
+        
+          <div class="tag-item">
+            <i class="fas fa-tag"></i>
+            <a href="../../../../tags/Sway/">Sway</a>
             <span class="count">(1)</span>
           </div>
         
@@ -194,29 +196,29 @@
     <div class="tab-bar">
       <div class="tab active">
         <i class="fas fa-file-alt"></i>
-        <span>第一篇博客兼部署采坑记.md</span>
+        <span>从虚拟机到 ThinkPad：我的 Linux 折腾记录.md</span>
       </div>
     </div>
     
     <div class="content-area">
       <article class="post-content">
         <div class="post-header">
-          <h1>第一篇博客兼部署采坑记</h1>
+          <h1>从虚拟机到 ThinkPad：我的 Linux 折腾记录</h1>
           <div class="post-meta">
             <span class="date">
               <i class="fas fa-calendar-alt"></i>
-              2023-08-08
+              2026-10-04
             </span>
             
             <span class="updated-date">
               <i class="fas fa-sync-alt"></i>
-              更新于 2026-09-28
+              更新于 2026-10-04
             </span>
                         
               <span class="categories">
                 <i class="fas fa-folder"></i>
                 <div class="categories-list">
-                  <ul class="category-item-post-list"><li class="category-item-post-list-item"><a class="category-item-post-list-link" href="../../../../categories/%E5%8D%9A%E5%AE%A2%E5%BB%BA%E8%AE%BE/">博客建设</a></li></ul>
+                  <ul class="category-item-post-list"><li class="category-item-post-list-item"><a class="category-item-post-list-link" href="../../../../categories/%E6%8A%98%E8%85%BE%E8%AE%B0%E5%BD%95/">折腾记录</a></li></ul>
                 </div>
               </span>
             
@@ -224,7 +226,7 @@
               <span class="tags">
                 <i class="fas fa-tags"></i>
                 <div class="tags-list">
-                  <ul class="tag-item-post-list" itemprop="keywords"><li class="tag-item-post-list-item"><a class="tag-item-post-list-link" href="../../../../tags/GitHub-Pages/" rel="tag">GitHub Pages</a></li><li class="tag-item-post-list-item"><a class="tag-item-post-list-link" href="../../../../tags/Hexo/" rel="tag">Hexo</a></li><li class="tag-item-post-list-item"><a class="tag-item-post-list-link" href="../../../../tags/%E4%B8%BB%E9%A2%98%E7%BE%8E%E5%8C%96/" rel="tag">主题美化</a></li></ul>
+                  <ul class="tag-item-post-list" itemprop="keywords"><li class="tag-item-post-list-item"><a class="tag-item-post-list-link" href="../../../../tags/Linux/" rel="tag">Linux</a></li><li class="tag-item-post-list-item"><a class="tag-item-post-list-link" href="../../../../tags/Sway/" rel="tag">Sway</a></li><li class="tag-item-post-list-item"><a class="tag-item-post-list-link" href="../../../../tags/ThinkPad/" rel="tag">ThinkPad</a></li><li class="tag-item-post-list-item"><a class="tag-item-post-list-link" href="../../../../tags/Ubuntu/" rel="tag">Ubuntu</a></li></ul>
                 </div>
               </span>
             
@@ -232,10 +234,130 @@
         </div>
         
         <div class="post-body vscode-markdown">
-          <p>终于是基本上把博客搞定了，还剩下一些美化工作和莫名其妙的bug要修，这篇文章会持续更新一些在博客搭建上的遇到的问题以及解决方法<br><span id="more"></span></p>
-<p><strong>安装</strong><br>唯一要注意的是guihub库名字要和用户名一样，必须是“username.github.io”多了少了都不行！！！</p>
-<p><strong>主题美化</strong><br>看好源文件的路径，别打错了<br>对某个选项进行修改前建议做好备份<br>我用的NEXT主题，其中的Pisces主题在github上是无效的<br>朋友反应在高分辨率下背景不完全，遂发现在设置背景的时候少了一行代码，导致背景会随网站缩放一起改变，正确代码如下<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">body</span> &#123;<br> 	<span class="hljs-attribute">background</span>:<span class="hljs-built_in">url</span>(<span class="hljs-string">/images/background.jpg</span>);<br> 	<span class="hljs-attribute">background-repeat</span>: no-repeat;<br>    <span class="hljs-attribute">background-attachment</span>: fixed;       //不随鼠标移动<br>    <span class="hljs-attribute">background-size</span>: cover;             //图片填充，我就少了这个<br>    <span class="hljs-attribute">background-position</span>: center;        //居中<br>&#125;<br></code></pre></td></tr></table></figure></p>
-<p><strong>调试</strong><br><code>hexo clean</code> 和 <code>hexo g</code> 重新生成页面 ；<code>hexo d</code>部署到线上或者<code>hexo s</code>本地部署，端口为4000<br>不要hexo d后傻乎乎的直接刷新页面然后看到没变化就觉得哪里出了问题，github有延迟，记得保持耐心哦<br>用个好点的文档编辑器，别用记事本了，看的眼睛疼还不能debug</p>
+          <p>最近买了台 ThinkPad 做副机，打算拿来看网课、写作业，顺便学 Linux。装系统倒没花太久，后面配平铺窗口管理器花了两天。</p>
+<p>把之前的虚拟机练习也算上，记一下这次从装系统到折腾桌面的过程。</p>
+<p>注：本文基本由ai总结，我只做小部分修改</p>
+<span id="more"></span>
+<h2 id="一、虚拟机练习"><a href="#一、虚拟机练习" class="headerlink" title="一、虚拟机练习"></a>一、虚拟机练习</h2><p>买笔记本之前，我先在 VMware 里装了 Arch+i3wm</p>
+<p>装好 GNOME，选了中文，结果字体没装全，界面上都是方框。为了方便操作，我开了 SSH，从 Windows 连进去补字体，又检查了驱动和 VMware Tools。后来还装了 Fastfetch<del>为了装逼</del></p>
+<p>接着试了 fish。了解了<code>pacman -S</code> 和 <code>-Syu</code> 的区别、用<code>chsh</code>把fish设置成默认shell 。</p>
+<p>第一次玩平铺窗口管理器用的是 i3。装完找不到登录选项，查了半天，发现最初的安装命令漏了 Xorg。补上之后，终于进了那个黑乎乎桌面，选 Win 键作修饰键，按 Win + Enter 开终端，几个窗口就自动排好了。</p>
+<p>不过中文又来添乱：xterm 先是方框，换字体以后能显示了，字间距却大得离谱。来回试了几次，还是宽，又讨论了换终端。那个时候觉得不算大事，后面才发现这个中文输入到底有多难。</p>
+<p>这段主要是在虚拟机里练手。后来笔记本上的 Ubuntu 和 Sway，是另外一次安装。</p>
+<h2 id="二、选笔记本"><a href="#二、选笔记本" class="headerlink" title="二、选笔记本"></a>二、选笔记本</h2><p>咸鱼上蹲了好多天，最后实际买回来的是 <strong>X1 Carbon G8，i5、16GB 内存、256GB SSD、14 寸 2K 屏</strong>，买它主要是因为看上它只有1Kg，可以背着到处跑。</p>
+<p>用途没什么复杂的：看网课、编辑文本、写学校作业。留了一个 Windows，以后有些软件需要用，Linux 则拿来日常学习和折腾。</p>
+<p>发行版一开始没完全定下来。Arch 在虚拟机里玩过，CachyOS 也考虑过，但后来想想，我不太喜欢滚动更新，还是 Debian 系、固定版本的系统更适合这台副机。最后选了比较熟悉的 Ubuntu。</p>
+<p>最后Win和Linux各拿120g。</p>
+<h2 id="三、第一次-Linux-配置：折腾到想重装"><a href="#三、第一次-Linux-配置：折腾到想重装" class="headerlink" title="三、第一次 Linux 配置：折腾到想重装"></a>三、第一次 Linux 配置：折腾到想重装</h2><p>第一轮是在 Ubuntu 24.04 上配 Sway。我想用键盘切窗口，也喜欢平铺桌面，看起来很适合一边看课一边记东西。</p>
+<p>结果花时间最多的地方是中文输入法。</p>
+<p>GNOME Terminal 里有时正常，Firefox 的候选框却不跟光标；换到 Foot、Kitty，又可能连候选框都没有。2K 屏开了缩放以后，位置问题更明显。试过改环境变量、注销、重启，再换一种启动方式，结果总是不一样。</p>
+<p>中间还有一次，我忘了关原来的 Firefox 进程，以为是在测新的设置。关干净重开，才发现刚才的测试不算数。fish 的命令写法、Firefox 的 Snap 路径，也都绊过一下。</p>
+<p>折腾到后来，我直接问：“Sway 好难啊，能不能全删了换 Hyprland？”也想过卸载干净，再重装 Sway。还没决定好，回到 Ubuntu 默认桌面，连那边的输入法也不正常了。</p>
+<p>最麻烦的是，我已经记不清之前改了哪些东西。</p>
+<p>于是决定保留 Windows，把 Ubuntu 重装。中途考虑过 EndeavourOS + i3，但最后还是选了 Ubuntu 26.04，熟悉一点，少换一套东西。</p>
+<h2 id="四、第二次-Linux-配置：终于能用，再慢慢改"><a href="#四、第二次-Linux-配置：终于能用，再慢慢改" class="headerlink" title="四、第二次 Linux 配置：终于能用，再慢慢改"></a>四、第二次 Linux 配置：终于能用，再慢慢改</h2><p>第二天，我还是想用 Sway。又聊了 Debian 和 Ubuntu 的选择，最后没再换系统，就在新装的 Ubuntu 上继续。</p>
+<p>这次我让 Codex 通过 SSH 连到笔记本，直接检查和改配置，我在屏幕前确认效果。实机上是 Ubuntu 26.04.1、Sway 1.11，屏幕先设成 150% 缩放。之前关于 Sway 输入法的回答也有过时的地方，核对版本后重新配置，浏览器和终端终于都能输入中文，候选框也跟着光标走了。Foot 的中文间距再单独调了一次，才算正常。</p>
+<p>这次先把能用的配置备份下来，再开始美化。我想要深色、简单一点的桌面，最初用了蓝灰配色，后来找了 <a target="_blank" rel="noopener" href="https://github.com/gnuunixchad/dotfiles">gnuunixchad 的 dotfiles</a> 作参考，改成黑灰底色、绿色边框，窗口之间不留空隙。</p>
+<p>终端换成 Kitty，启动器用 Wofi。Kitty 一开始打开要等一秒多，后来加了后台预启动，快了不少。查看进程时那个关闭确认也关掉了。</p>
+<p><img src="/images/thinkpad/02-launcher.png" alt="Wofi 启动器"></p>
+<p>顶部栏也改了好几轮。左边放工作区和当前终端路径，中间只显示时间，悬停看月历；右边放托盘、通知、网络、蓝牙、音量、亮度和电池。14 寸屏幕空间紧，尽量用图标，CPU、内存数字后来也删了。</p>
+<p>几个小功能反而来回改得最多。点击路径原来是选目录开终端，后来改成用 Nautilus 打开当前目录。我试过换成 nnn，很快又撤销了：终端里敲 nnn 本来就方便，既然已经用鼠标点路径，还是图形文件管理器顺手。</p>
+<p>Wi-Fi 换成直接选附近网络。月历看起来“一行八天”，后来发现多出来的是周数，真正的问题是字体没对齐。</p>
+<p>亮度最初只能改数字，屏幕没反应，修了背光权限后才真能调。又改了滚轮方向和数字刷新，最后我干脆取消亮度滚轮，留下栏下的小滑块，把“保持亮屏”也放进去。电池则做成性能模式和电源菜单。</p>
+<p><img src="/images/thinkpad/03-brightness.png" alt="亮度和保持亮屏面板"></p>
+<p>期间还遇到过锁屏变红、注销后 Waybar 不启动。红屏当次恢复了，Waybar 调整了启动顺序，这两个还要在之后使用中继续看看。又修了太阳图标的样式问题：开启保持亮屏时，图标会放大、重复铺满背景，现在恢复成单个小太阳了。</p>
+<p>最后换壁纸，我只写了图片路径，忘了后面的 <code>fill</code>，又报了一次错。改好以后，也问清楚了以后自己换图该改哪个文件。</p>
+<p><img src="/images/thinkpad/05-tiling.png" alt="现在的平铺桌面"></p>
+<p><em>这是修复亮度图标后新截的实机图，两个终端里的文字是临时准备的展示内容。</em></p>
+<p>现在这台副机总算有点能用了。看课、记东西、开文件，都有顺手的入口。后面肯定还会改，但先用一阵子吧，毕竟买回来是为了学习，不能一直拿它配桌面。</p>
+<h2 id="五、窗口管理器下的常用快捷键"><a href="#五、窗口管理器下的常用快捷键" class="headerlink" title="五、窗口管理器下的常用快捷键"></a>五、窗口管理器下的常用快捷键</h2><p>顺便把这套 Sway 的快捷键记在这里，免得过几天又忘了。下面按我现在的配置写，Win 就是键盘上的 Windows 标志键。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Win + Enter</td>
+<td>打开 Kitty 终端</td>
+</tr>
+<tr>
+<td>Win + D</td>
+<td>打开 Wofi，输入名字搜索应用</td>
+</tr>
+<tr>
+<td>Win + Shift + B</td>
+<td>打开浏览器</td>
+</tr>
+<tr>
+<td>Win + Shift + T</td>
+<td>打开文本编辑器</td>
+</tr>
+<tr>
+<td>Win + Shift + N</td>
+<td>打开文件管理器</td>
+</tr>
+<tr>
+<td>Win + 方向键</td>
+<td>切换到对应方向的窗口</td>
+</tr>
+<tr>
+<td>Win + Shift + 方向键</td>
+<td>移动当前窗口</td>
+</tr>
+<tr>
+<td>Win + 数字</td>
+<td>切换工作区，0 对应第 10 个</td>
+</tr>
+<tr>
+<td>Win + Shift + 数字</td>
+<td>把当前窗口放到对应工作区</td>
+</tr>
+<tr>
+<td>Win + B / Win + V</td>
+<td>让后面新开的窗口左右 / 上下排列</td>
+</tr>
+<tr>
+<td>Win + F</td>
+<td>全屏，再按一次退出</td>
+</tr>
+<tr>
+<td>Win + Shift + 空格</td>
+<td>在平铺和悬浮之间切换</td>
+</tr>
+<tr>
+<td>Win + R</td>
+<td>进入调整大小模式，用方向键调整，Enter 或 Esc 退出</td>
+</tr>
+<tr>
+<td>Win + Shift + Q</td>
+<td>关闭当前窗口</td>
+</tr>
+<tr>
+<td>Win + Esc</td>
+<td>锁屏</td>
+</tr>
+<tr>
+<td>Win + Shift + E</td>
+<td>弹出注销确认</td>
+</tr>
+<tr>
+<td>Print / Win + Shift + S</td>
+<td>全屏截图 / 框选截图</td>
+</tr>
+<tr>
+<td>Win + Shift + C</td>
+<td>重新加载 Sway 配置</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>窗口多了可以分到不同工作区，比如 1 放网课，2 写作业，3 放参考资料。切换窗口用 Win + 方向键；加上 Shift 就变成移动窗口，刚开始很容易按混。</p>
+<p>不想让某个窗口参与平铺，就按 Win + Shift + 空格让它悬浮。想把网课或文档暂时铺满屏幕，用 Win + F 就行。</p>
+<p>这些键也都能自己改，配置在 <code>~/.config/sway/config</code>。保存后按 Win + Shift + C 重新加载。音量和亮度继续用键盘上的功能键，部分 ThinkPad 设置下要配合 Fn。</p>
 
         </div>
 
@@ -244,16 +366,6 @@
         <!-- 文章导航 - 只在同分类有多篇文章时显示 -->
         
         
-        
-        <nav class="post-nav">
-          
-            <a class="prev" href="../../09/%E6%80%8E%E4%B9%88%E5%81%9AHTML%E7%BD%91%E9%A1%B5/">
-              <i class="fas fa-chevron-left"></i>
-              怎么做HTML网页
-            </a>
-          
-          
-        </nav>
         
         
         <!-- 推荐文章 -->
@@ -271,165 +383,7 @@
   <div class="vs-recommended-grid">
     
       <div class="vs-recommended-item" data-index="0" tabindex="0">
-        <a href="../../09/%E6%80%8E%E4%B9%88%E5%81%9AHTML%E7%BD%91%E9%A1%B5/" class="vs-recommended-link">
-          <!-- 文章信息 -->
-          <div class="vs-recommended-content">
-            <div class="vs-recommended-title">
-              <i class="fas fa-file-code"></i>
-              <span>怎么做HTML网页</span>
-            </div>
-            
-            <div class="vs-recommended-excerpt">
-              起因在美化博客过程中发现“about”页可以使用HTML自定义网页内容，但是我不会HTML捏 所以这篇博客先记录一下学习中发现的HTML网页在线编辑器
-            </div>
-            
-            <div class="vs-recommended-meta">
-              
-              
-              
-                <span class="vs-tags-preview">
-                  <i class="fas fa-tags"></i>
-                  Hexo, HTML
-                  
-                </span>
-              
-              
-              <span class="vs-meta-info">
-                <span class="vs-date">
-                  <i class="fas fa-calendar-alt"></i>
-                  8月 09
-                </span>
-                <span class="vs-reading-time">
-                  <i class="fas fa-clock"></i>
-                  1 min
-                </span>
-              </span>
-            </div>
-          </div>
-        </a>
-      </div>
-    
-      <div class="vs-recommended-item" data-index="1" tabindex="0">
-        <a href="../../../09/17/%E5%86%99%E4%BD%9C%E6%8C%87%E5%AF%BC/" class="vs-recommended-link">
-          <!-- 文章信息 -->
-          <div class="vs-recommended-content">
-            <div class="vs-recommended-title">
-              <i class="fas fa-file-code"></i>
-              <span>写一篇博客</span>
-            </div>
-            
-            <div class="vs-recommended-excerpt">
-              好久没有写博客了，高三真tm不是人呆的，只能说自求多福了 TAT 为了防止好久不写博客忘记了怎么写，现在写一篇教程8（其实就是因为刚刚想写但是忘记怎么写了
-            </div>
-            
-            <div class="vs-recommended-meta">
-              
-              
-              
-                <span class="vs-tags-preview">
-                  <i class="fas fa-tags"></i>
-                  Hexo, Markdown, 写作
-                  
-                </span>
-              
-              
-              <span class="vs-meta-info">
-                <span class="vs-date">
-                  <i class="fas fa-calendar-alt"></i>
-                  9月 17
-                </span>
-                <span class="vs-reading-time">
-                  <i class="fas fa-clock"></i>
-                  1 min
-                </span>
-              </span>
-            </div>
-          </div>
-        </a>
-      </div>
-    
-      <div class="vs-recommended-item" data-index="2" tabindex="0">
-        <a href="../../../../2026/10/04/ThinkPad-Sway%E6%8A%98%E8%85%BE%E8%AE%B0/" class="vs-recommended-link">
-          <!-- 文章信息 -->
-          <div class="vs-recommended-content">
-            <div class="vs-recommended-title">
-              <i class="fas fa-file-code"></i>
-              <span>从虚拟机到 ThinkPad：我的 Linux 折腾记录</span>
-            </div>
-            
-            <div class="vs-recommended-excerpt">
-              最近买了台 ThinkPad 做副机，打算拿来看网课、写作业，顺便学 Linux。装系统倒没花太久，后面配平铺窗口管理器花了两天。 把之前的虚拟机练习也算上，记一下这次从装系统到折腾桌面的过程。 注：本文基本由ai总结，我只做小部分修改
-            </div>
-            
-            <div class="vs-recommended-meta">
-              
-              
-              
-                <span class="vs-tags-preview">
-                  <i class="fas fa-tags"></i>
-                  Linux, ThinkPad, Ubuntu
-                  
-                    <span class="vs-more-tags">+1</span>
-                  
-                </span>
-              
-              
-              <span class="vs-meta-info">
-                <span class="vs-date">
-                  <i class="fas fa-calendar-alt"></i>
-                  10月 04
-                </span>
-                <span class="vs-reading-time">
-                  <i class="fas fa-clock"></i>
-                  2 min
-                </span>
-              </span>
-            </div>
-          </div>
-        </a>
-      </div>
-    
-      <div class="vs-recommended-item" data-index="3" tabindex="0">
-        <a href="../../../../2026/09/29/%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%8A%8A%E9%A1%B9%E7%9B%AE%E5%B9%B6%E5%85%A5%E5%88%AB%E4%BA%BA%E7%9A%84GitHub%E4%BB%93%E5%BA%93/" class="vs-recommended-link">
-          <!-- 文章信息 -->
-          <div class="vs-recommended-content">
-            <div class="vs-recommended-title">
-              <i class="fas fa-file-code"></i>
-              <span>第一次把项目并入别人的 GitHub 仓库：从 README 到 Pull Request</span>
-            </div>
-            
-            <div class="vs-recommended-excerpt">
-              今天想把自己写的项目放进别人创建的 GitHub 仓库。起初我以为“推送到 main”就是把当前文件夹直接传上去，后来才弄明白：我的项目文件夹当时甚至不是 Git 仓库，而目标仓库已经有自己的内容。直接覆盖或强推都可能伤到别人的文件。 这篇...
-            </div>
-            
-            <div class="vs-recommended-meta">
-              
-              
-              
-                <span class="vs-tags-preview">
-                  <i class="fas fa-tags"></i>
-                  Git, GitHub, 学习笔记
-                  
-                </span>
-              
-              
-              <span class="vs-meta-info">
-                <span class="vs-date">
-                  <i class="fas fa-calendar-alt"></i>
-                  9月 29
-                </span>
-                <span class="vs-reading-time">
-                  <i class="fas fa-clock"></i>
-                  1 min
-                </span>
-              </span>
-            </div>
-          </div>
-        </a>
-      </div>
-    
-      <div class="vs-recommended-item" data-index="4" tabindex="0">
-        <a href="../../../../2026/03/03/%E6%9C%BA%E5%99%A8%E4%BA%BA%E9%83%A8%E7%BD%B2%E4%B8%8E%E8%BF%90%E7%BB%B4/" class="vs-recommended-link">
+        <a href="../../../03/03/%E6%9C%BA%E5%99%A8%E4%BA%BA%E9%83%A8%E7%BD%B2%E4%B8%8E%E8%BF%90%E7%BB%B4/" class="vs-recommended-link">
           <!-- 文章信息 -->
           <div class="vs-recommended-content">
             <div class="vs-recommended-title">
@@ -469,7 +423,46 @@
         </a>
       </div>
     
-      <div class="vs-recommended-item" data-index="5" tabindex="0">
+      <div class="vs-recommended-item" data-index="1" tabindex="0">
+        <a href="../../../09/29/%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%8A%8A%E9%A1%B9%E7%9B%AE%E5%B9%B6%E5%85%A5%E5%88%AB%E4%BA%BA%E7%9A%84GitHub%E4%BB%93%E5%BA%93/" class="vs-recommended-link">
+          <!-- 文章信息 -->
+          <div class="vs-recommended-content">
+            <div class="vs-recommended-title">
+              <i class="fas fa-file-code"></i>
+              <span>第一次把项目并入别人的 GitHub 仓库：从 README 到 Pull Request</span>
+            </div>
+            
+            <div class="vs-recommended-excerpt">
+              今天想把自己写的项目放进别人创建的 GitHub 仓库。起初我以为“推送到 main”就是把当前文件夹直接传上去，后来才弄明白：我的项目文件夹当时甚至不是 Git 仓库，而目标仓库已经有自己的内容。直接覆盖或强推都可能伤到别人的文件。 这篇...
+            </div>
+            
+            <div class="vs-recommended-meta">
+              
+              
+              
+                <span class="vs-tags-preview">
+                  <i class="fas fa-tags"></i>
+                  Git, GitHub, 学习笔记
+                  
+                </span>
+              
+              
+              <span class="vs-meta-info">
+                <span class="vs-date">
+                  <i class="fas fa-calendar-alt"></i>
+                  9月 29
+                </span>
+                <span class="vs-reading-time">
+                  <i class="fas fa-clock"></i>
+                  1 min
+                </span>
+              </span>
+            </div>
+          </div>
+        </a>
+      </div>
+    
+      <div class="vs-recommended-item" data-index="2" tabindex="0">
         <a href="../../../../2025/03/30/%E6%B4%9B%E8%B0%B7P12000/" class="vs-recommended-link">
           <!-- 文章信息 -->
           <div class="vs-recommended-content">
@@ -503,6 +496,123 @@
                 <span class="vs-reading-time">
                   <i class="fas fa-clock"></i>
                   2 min
+                </span>
+              </span>
+            </div>
+          </div>
+        </a>
+      </div>
+    
+      <div class="vs-recommended-item" data-index="3" tabindex="0">
+        <a href="../../../../2025/03/18/%E6%B4%9B%E8%B0%B7P1223/" class="vs-recommended-link">
+          <!-- 文章信息 -->
+          <div class="vs-recommended-content">
+            <div class="vs-recommended-title">
+              <i class="fas fa-file-code"></i>
+              <span>洛谷P1223</span>
+            </div>
+            
+            <div class="vs-recommended-excerpt">
+              题目：P1223 排队接水题目需要输出平均时间最短的排队顺序和平均等待时间，用贪心可解。
+            </div>
+            
+            <div class="vs-recommended-meta">
+              
+              
+              
+                <span class="vs-tags-preview">
+                  <i class="fas fa-tags"></i>
+                  C++, 洛谷, 贪心
+                  
+                </span>
+              
+              
+              <span class="vs-meta-info">
+                <span class="vs-date">
+                  <i class="fas fa-calendar-alt"></i>
+                  3月 18
+                </span>
+                <span class="vs-reading-time">
+                  <i class="fas fa-clock"></i>
+                  1 min
+                </span>
+              </span>
+            </div>
+          </div>
+        </a>
+      </div>
+    
+      <div class="vs-recommended-item" data-index="4" tabindex="0">
+        <a href="../../../../2025/03/16/%E6%B4%9B%E8%B0%B7P1957/" class="vs-recommended-link">
+          <!-- 文章信息 -->
+          <div class="vs-recommended-content">
+            <div class="vs-recommended-title">
+              <i class="fas fa-file-code"></i>
+              <span>洛谷P1957</span>
+            </div>
+            
+            <div class="vs-recommended-excerpt">
+              题目：P1957题目的主要难点在于判断运算式的总长度，由于式子格式固定为 a ？b = c，扣除固定的两个运算符号，问题进一步转化为求每个数的位数(如为负数则加上负号)
+            </div>
+            
+            <div class="vs-recommended-meta">
+              
+              
+              
+                <span class="vs-tags-preview">
+                  <i class="fas fa-tags"></i>
+                  C++, 洛谷, 模拟
+                  
+                </span>
+              
+              
+              <span class="vs-meta-info">
+                <span class="vs-date">
+                  <i class="fas fa-calendar-alt"></i>
+                  3月 16
+                </span>
+                <span class="vs-reading-time">
+                  <i class="fas fa-clock"></i>
+                  2 min
+                </span>
+              </span>
+            </div>
+          </div>
+        </a>
+      </div>
+    
+      <div class="vs-recommended-item" data-index="5" tabindex="0">
+        <a href="../../../../2024/05/28/%E4%B8%80%E9%94%AE%E5%88%87%E6%8D%A2%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" class="vs-recommended-link">
+          <!-- 文章信息 -->
+          <div class="vs-recommended-content">
+            <div class="vs-recommended-title">
+              <i class="fas fa-file-code"></i>
+              <span>一键切换网络配置</span>
+            </div>
+            
+            <div class="vs-recommended-excerpt">
+              起因由于家中装了软路由的缘故，产生了两个网关，一个是原本的网关，一个是软路由的网关，我可以改变设备的网关来决定数据是否经过软路由
+            </div>
+            
+            <div class="vs-recommended-meta">
+              
+              
+              
+                <span class="vs-tags-preview">
+                  <i class="fas fa-tags"></i>
+                  Windows, 网络配置, 批处理
+                  
+                </span>
+              
+              
+              <span class="vs-meta-info">
+                <span class="vs-date">
+                  <i class="fas fa-calendar-alt"></i>
+                  5月 28
+                </span>
+                <span class="vs-reading-time">
+                  <i class="fas fa-clock"></i>
+                  1 min
                 </span>
               </span>
             </div>
@@ -599,7 +709,7 @@ document.addEventListener('DOMContentLoaded', function() {
     </button>
     <span class="status-spacer"></span>
     <span class="status-location" id="status-location" data-article="true">
-      文章 | <span class="status-location-name">第一篇博客兼部署采坑记</span> · 已读 <span id="status-reading-percent">0%</span>
+      文章 | <span class="status-location-name">从虚拟机到 ThinkPad：我的 Linux 折腾记录</span> · 已读 <span id="status-reading-percent">0%</span>
     </span>
     <button class="status-button" id="status-theme-toggle" type="button" aria-label="切换到浅色主题" title="切换到浅色主题" aria-pressed="false">
       <svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
@@ -755,7 +865,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 <script src="../../../../js/search.js"></script>
 <script src="../../../../js/theme-switch.js"></script>
 
-<script src="../../../../js/password-protect.js?v=1791126475595"></script>
+<script src="../../../../js/password-protect.js?v=1791126475591"></script>
 
     <script>
       // 移动端菜单切换
