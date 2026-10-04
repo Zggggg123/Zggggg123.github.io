@@ -69,7 +69,7 @@
   <link rel="stylesheet" href="../../../../css/mermaid.css">
 
   <link rel="stylesheet" href="../../../../css/vs-code.css">
-  <link rel="stylesheet" href="../../../../css/post.css?v=1791126475591">
+  <link rel="stylesheet" href="../../../../css/post.css?v=1791129011523">
   <link rel="stylesheet" href="../../../../css/tag.css">
   <link rel="stylesheet" href="../../../../css/categories.css">
   <link rel="stylesheet" href="../../../../css/archive.css">
@@ -259,15 +259,15 @@
 <p>这次我让 Codex 通过 SSH 连到笔记本，直接检查和改配置，我在屏幕前确认效果。实机上是 Ubuntu 26.04.1、Sway 1.11，屏幕先设成 150% 缩放。之前关于 Sway 输入法的回答也有过时的地方，核对版本后重新配置，浏览器和终端终于都能输入中文，候选框也跟着光标走了。Foot 的中文间距再单独调了一次，才算正常。</p>
 <p>这次先把能用的配置备份下来，再开始美化。我想要深色、简单一点的桌面，最初用了蓝灰配色，后来找了 <a target="_blank" rel="noopener" href="https://github.com/gnuunixchad/dotfiles">gnuunixchad 的 dotfiles</a> 作参考，改成黑灰底色、绿色边框，窗口之间不留空隙。</p>
 <p>终端换成 Kitty，启动器用 Wofi。Kitty 一开始打开要等一秒多，后来加了后台预启动，快了不少。查看进程时那个关闭确认也关掉了。</p>
-<p><img src="/images/thinkpad/02-launcher.png" alt="Wofi 启动器"></p>
+<p><img src="/images/thinkpad/02-launcher.webp" alt="Wofi 启动器"></p>
 <p>顶部栏也改了好几轮。左边放工作区和当前终端路径，中间只显示时间，悬停看月历；右边放托盘、通知、网络、蓝牙、音量、亮度和电池。14 寸屏幕空间紧，尽量用图标，CPU、内存数字后来也删了。</p>
 <p>几个小功能反而来回改得最多。点击路径原来是选目录开终端，后来改成用 Nautilus 打开当前目录。我试过换成 nnn，很快又撤销了：终端里敲 nnn 本来就方便，既然已经用鼠标点路径，还是图形文件管理器顺手。</p>
 <p>Wi-Fi 换成直接选附近网络。月历看起来“一行八天”，后来发现多出来的是周数，真正的问题是字体没对齐。</p>
 <p>亮度最初只能改数字，屏幕没反应，修了背光权限后才真能调。又改了滚轮方向和数字刷新，最后我干脆取消亮度滚轮，留下栏下的小滑块，把“保持亮屏”也放进去。电池则做成性能模式和电源菜单。</p>
-<p><img src="/images/thinkpad/03-brightness.png" alt="亮度和保持亮屏面板"></p>
+<p><img src="/images/thinkpad/03-brightness.webp" alt="亮度和保持亮屏面板"></p>
 <p>期间还遇到过锁屏变红、注销后 Waybar 不启动。红屏当次恢复了，Waybar 调整了启动顺序，这两个还要在之后使用中继续看看。又修了太阳图标的样式问题：开启保持亮屏时，图标会放大、重复铺满背景，现在恢复成单个小太阳了。</p>
 <p>最后换壁纸，我只写了图片路径，忘了后面的 <code>fill</code>，又报了一次错。改好以后，也问清楚了以后自己换图该改哪个文件。</p>
-<p><img src="/images/thinkpad/05-tiling.png" alt="现在的平铺桌面"></p>
+<p><img src="/images/thinkpad/05-tiling.webp" alt="现在的平铺桌面"></p>
 <p><em>这是修复亮度图标后新截的实机图，两个终端里的文字是临时准备的展示内容。</em></p>
 <p>现在这台副机总算有点能用了。看课、记东西、开文件，都有顺手的入口。后面肯定还会改，但先用一阵子吧，毕竟买回来是为了学习，不能一直拿它配桌面。</p>
 <h2 id="五、窗口管理器下的常用快捷键"><a href="#五、窗口管理器下的常用快捷键" class="headerlink" title="五、窗口管理器下的常用快捷键"></a>五、窗口管理器下的常用快捷键</h2><p>顺便把这套 Sway 的快捷键记在这里，免得过几天又忘了。下面按我现在的配置写，Win 就是键盘上的 Windows 标志键。</p>
@@ -865,7 +865,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 <script src="../../../../js/search.js"></script>
 <script src="../../../../js/theme-switch.js"></script>
 
-<script src="../../../../js/password-protect.js?v=1791126475591"></script>
+<script src="../../../../js/password-protect.js?v=1791129011523"></script>
 
     <script>
       // 移动端菜单切换
